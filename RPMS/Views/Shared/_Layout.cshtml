@@ -8,22 +8,20 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RPMS.styles.css" asp-append-version="true" />
 </head>
-<body class="overflow-hidden">
+<body>
 
-    <div class="container-fluid ">
-        <div class="row flex-nowrap">
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light min-vh-100 overflow-hidden border border-right" style="width: 280px;">
-                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap" /></svg>
-                    <span class="fs-4">RPMS</span>
-                </a>
-                <hr>
-                
+    <div class="container-fluid">
+        <div class="row vh-100"> 
+            <nav class="h-100 col-md-2 col-lg-2 d-flex flex-column bg-light border border-right sidebar py-3 "> 
+                <div class="d-flex justify-content-center">
+                    <h3 class="text-bold navbar-brand">RPMS</h3>
+                </div>
+                                
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
                         <a href="#" class="nav-link active" aria-current="page">
                             <svg class="bi me-2" width="16" height="16"><use xlink:href="#home" /></svg>
-                            Residents Profile
+                            Residents
                         </a>
                     </li>
                     <li>
@@ -39,12 +37,9 @@
                             Settings
                         </a>
                     </li>
-
-
                 </ul>
-                                
-                
-                <hr>
+
+                    
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
@@ -58,17 +53,22 @@
                         <li><a class="dropdown-item" href="#">Sign out</a></li>
                     </ul>
                 </div>
-            </div>
+                
+            </nav>
 
-            <div class="">
-                <header class="flex justify-content-left py-3 mb-4 border-bottom  ">
-                    <h3 class="fs-4 font-weight-bold">Residents Profile</h3>
-                                                       
-                </header>
-                <main role="main" class="pb-3">
+            <main role="main" class="col-md-10 col-lg-10 ">
+                <nav class="navbar bg-light flex-md-nowrap py-3 border-bottom ">                    
+                    <h2 class=" font-weight-bold text-dark ">Residents Profile</h2>                                
+                    <ul class="navbar-nav px-3">
+                        <li class="nav-item text-nowrap">
+                            <a class="nav-link" href="#">Sign out</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="pb-3">
                     @RenderBody()
-                </main>
-            </div>
+                </div>
+            </main>
         </div>
         
     </div>

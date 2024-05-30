@@ -15,6 +15,10 @@ namespace RPMS.Models
 
         public int Age { get; set; }
 
+        public string Gender { get; set; } = string.Empty;
+
+        public string Status { get; set; } = string.Empty;
+
         public DateTime Birthday { get; set; }
 
         public string? ContactNo { get; set; } = string.Empty;

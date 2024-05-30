@@ -11,9 +11,9 @@ namespace RPMS.Data
 
         }
 
-        DbSet<Resident> Residents { get; set; }
+        public DbSet<Resident> Residents { get; set; }
 
-        DbSet<Address> Addresses { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
     }
 }
