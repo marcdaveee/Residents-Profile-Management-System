@@ -18,5 +18,12 @@ namespace RPMS.Controllers
             var residents = _context.Residents.Include(r => r.Address).ToList();
             return View(residents);
         }
+
+        public IActionResult Details(int Id)
+        {
+            var resident = _context.Residents.Include(r => r.Address).SingleOrDefault(r => r.Id == Id);
+
+            return View(resident);
+        }
     }
 }
