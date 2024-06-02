@@ -113,9 +113,9 @@
                         <p class="fw-normal mb-1">@item.value.Status</p>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-link btn-sm btn-rounded">
-                            Edit
-                        </button>
+                        <a asp-controller="resident" asp-action="details" asp-route-id="@item.value.Id" class="btn btn-link btn-sm btn-rounded">
+                            View
+                        </a>
                     </td>
                 </tr>
             }
