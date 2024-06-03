@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RPMS.Data;
+using RPMS.Interfaces;
+using RPMS.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IResidentRepository, ResidentRepository>();
 
 var app = builder.Build();
 

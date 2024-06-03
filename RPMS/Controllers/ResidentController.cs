@@ -1,27 +1,36 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RPMS.Data;
+using RPMS.Interfaces;
 
 namespace RPMS.Controllers
 {
     public class ResidentController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IResidentRepository _residentRepository;
 
-        public ResidentController(ApplicationDbContext context)
+        public ResidentController(ApplicationDbContext context, IResidentRepository residentRepository)
         {
             _context = context;
+            _residentRepository = residentRepository;
             
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var residents = _context.Residents.Include(r => r.Address).ToList();
+            var residents = await _residentRepository.GetAllResidents();
+
             return View(residents);
         }
 
-        public IActionResult Details(int Id)
+        public async Task <IActionResult> Details(int Id)
         {
-            var resident = _context.Residents.Include(r => r.Address).SingleOrDefault(r => r.Id == Id);
+            var resident = await _residentRepository.GetResidentById(Id);
+
+            if(resident == null)
+            {
+                return View("Error");
+            }
 
             return View(resident);
         }
