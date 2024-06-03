@@ -13,6 +13,7 @@ namespace RPMS.Repository
         {
             _context = context;            
         }
+
         public async Task<IEnumerable<Resident>> GetAllResidents()
         {
             var residents = await _context.Residents.Include(r => r.Address).ToListAsync();
@@ -30,6 +31,23 @@ namespace RPMS.Repository
             }
 
             return resident;
+        }
+
+        public async Task<bool> Add(Resident resident)
+        {
+            await _context.AddAsync(resident);
+
+            return await Save();
+        }
+
+        public async Task<bool> Save()
+        {
+            var result = await _context.SaveChangesAsync();
+            if(result > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

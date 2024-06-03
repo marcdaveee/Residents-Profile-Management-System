@@ -5,8 +5,12 @@ namespace RPMS.Interfaces
 {
     public interface IResidentRepository
     {
-        public Task <IEnumerable<Resident>> GetAllResidents();
+        Task <IEnumerable<Resident>> GetAllResidents();
 
-        public Task<Resident>? GetResidentById(int id);
+        Task<Resident>? GetResidentById(int id);
+
+        Task<bool> Add(Resident resident);
+
+        Task<bool> Save();
     }
 }

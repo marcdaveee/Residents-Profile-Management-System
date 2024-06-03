@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RPMS.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="vh-100 overflow-hidden">
 
-    <div class="container-fluid">
-        <div class="row g-0 vh-100"> 
+    <div class="container-fluid h-100 ">
+        <div class="row g-0 h-100"> 
             <nav class="h-100 col-md-2 col-lg-2 d-flex flex-column bg-light border border-right sidebar"> 
                 <div class="d-flex justify-content-center border-bottom mb-3 py-3">
                     <h3 class="text-bold navbar-brand">RPMS</h3>
@@ -61,7 +61,7 @@
                 
             </nav>
 
-            <main role="main" class="col-md-10 col-lg-10 ">
+            <main role="main" class="col-md-10 col-lg-10 h-100">
                 <nav class="navbar bg-light flex-md-nowrap py-3 px-3 border-bottom ">
                     <h3 class="font-weight-bold text-dark">Residents Profile</h3>                                
                     <ul class="navbar-nav">
@@ -76,7 +76,7 @@
                         </li>
                     </ul>
                 </nav>
-                <div class="pb-3">
+                <div class="overflow-auto" style="height: 90%">
                     @RenderBody()
                 </div>
             </main>

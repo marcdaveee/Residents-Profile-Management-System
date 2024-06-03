@@ -2,19 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using RPMS.Data;
 using RPMS.Interfaces;
+using RPMS.Models;
 
 namespace RPMS.Controllers
 {
     public class ResidentController : Controller
-    {
-        private readonly ApplicationDbContext _context;
+    {        
         private readonly IResidentRepository _residentRepository;
 
-        public ResidentController(ApplicationDbContext context, IResidentRepository residentRepository)
-        {
-            _context = context;
+        public ResidentController(IResidentRepository residentRepository)
+        {            
             _residentRepository = residentRepository;
-            
         }
         public async Task<IActionResult> Index()
         {
@@ -33,6 +31,24 @@ namespace RPMS.Controllers
             }
 
             return View(resident);
+        }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(Resident newResident)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(newResident);
+            }
+
+            await _residentRepository.Add(newResident);
+
+            return RedirectToAction("Index");
         }
     }
 }
