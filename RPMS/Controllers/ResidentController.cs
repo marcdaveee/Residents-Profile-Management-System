@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RPMS.Data;
 using RPMS.Interfaces;
 using RPMS.Models;
+using RPMS.ViewModels;
 
 namespace RPMS.Controllers
 {
@@ -45,6 +46,7 @@ namespace RPMS.Controllers
             {
                 return View(newResident);
             }
+
 
             await _residentRepository.Add(newResident);
 

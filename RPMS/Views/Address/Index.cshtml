@@ -1,0 +1,96 @@
+﻿@model Address
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{  
+}
+<div class="mx-3 mt-3 mb-4">
+    <div class="row">
+        <div class="col-lg-4 pb-5">
+            <!-- Main Address-->
+            <div class="card">
+                <div class="card-header font-weight-bold">
+                    <h5>
+                        Main Address
+                    </h5>
+                   
+                </div>
+                <div class="card-body">
+                    <div class="row gx-3 gy-3 mb-3">
+                        <!-- Form Group (first name)-->
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Brgy">Brgy.</label>
+                            <input class="form-control" id="Brgy" type="text" value="@Model.Brgy" readonly>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Municipality">Municipality</label>
+                            <input class="form-control" id="Municipality" type="text" value="@Model.Municipality" readonly>
+                        </div>
+                        <!-- Form Group (last name)-->
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Town">Town</label>
+                            <input class="form-control" id="Town" type="text" value="@Model.Town" readonly>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-sm-end">
+                        <a class="btn btn-primary">Edit</a>
+                    </div>
+                    
+
+                 </div>
+                
+            </div>
+       
+        </div>
+        <!-- Streets Table-->
+        <div class="col-lg-8 pb-5">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5>
+                        Streets
+                    </h5>
+
+                    <a asp-controller="street" asp-action="add" class="btn btn-success">Add Street</a>
+                    
+                    @* <div class="form-inline">
+                    <label class="text-muted mr-3" for="order-sort">Sort Orders</label>
+                    <select class="form-control" id="order-sort">
+                    <option>All</option>
+                    <option>Delivered</option>
+                    <option>In Progress</option>
+                    <option>Delayed</option>
+                    <option>Canceled</option>
+                    </select>
+                    </div> *@
+                </div>                              
+                <div class="table-responsive p-3" style="height: 350px">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th> #</th>
+                                <th>Street Name</th>
+                                <th>Actions</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            @foreach(var item in Model.Streets)
+                            {
+                                <tr>
+
+                                    <td>@item.StreetName</td>
+                                    <td>
+                                        <a asp-controller="street" asp-action="edit" class="btn btn-primary">Edit</a>
+                                </tr>
+                            }                     
+                                
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

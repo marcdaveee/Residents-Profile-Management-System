@@ -1,20 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RPMS.Models
+namespace RPMS.ViewModels
 {
-    public class Address
+    public class CreateAddressVM
     {
-        [Key]
-        public int Id { get; set; }
-        
+        [Required]
+        public string Street { get; set; } = string.Empty;
+
+        [Required]
         public string Brgy { get; set; } = string.Empty;
 
+        [Required]
         public string Municipality { get; set; } = string.Empty;
 
+        [Required]
         public string Town { get; set; } = string.Empty;
-
-        public List<Street> Streets { get; set; } = new List<Street>();
-
     }
 }

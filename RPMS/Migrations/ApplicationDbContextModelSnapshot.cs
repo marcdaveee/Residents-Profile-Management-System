@@ -38,10 +38,6 @@ namespace RPMS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Town")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -94,11 +90,37 @@ namespace RPMS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("StreetId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
 
+                    b.HasIndex("StreetId");
+
                     b.ToTable("Residents");
+                });
+
+            modelBuilder.Entity("RPMS.Models.Street", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StreetName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Streets");
                 });
 
             modelBuilder.Entity("RPMS.Models.Resident", b =>
@@ -109,7 +131,36 @@ namespace RPMS.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("RPMS.Models.Street", "Street")
+                        .WithMany("Residents")
+                        .HasForeignKey("StreetId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Address");
+
+                    b.Navigation("Street");
+                });
+
+            modelBuilder.Entity("RPMS.Models.Street", b =>
+                {
+                    b.HasOne("RPMS.Models.Address", "Address")
+                        .WithMany("Streets")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("RPMS.Models.Address", b =>
+                {
+                    b.Navigation("Streets");
+                });
+
+            modelBuilder.Entity("RPMS.Models.Street", b =>
+                {
+                    b.Navigation("Residents");
                 });
 #pragma warning restore 612, 618
         }
