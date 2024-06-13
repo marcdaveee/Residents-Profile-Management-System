@@ -2,7 +2,7 @@
 
 namespace RPMS.ViewModels
 {
-    public class CreateAddressVM
+    public class CreateAddressViewModel
     {
         [Required]
         public string Street { get; set; } = string.Empty;

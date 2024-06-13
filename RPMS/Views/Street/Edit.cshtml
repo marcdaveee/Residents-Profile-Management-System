@@ -1,5 +1,10 @@
-﻿@using RPMS.ViewModels
-@model CreateStreetViewModel
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using RPMS.ViewModels
+@model EditStreetViewModel
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,24 +25,24 @@
 <div class="d-flex justify-content-center my-3">
     <div class="card" style="width:400px">
         <div class="card-header">
-            Add New Street
+            Edit Street 
         </div>
 
         <div class="card-body">
-             <form method="post" asp-action="add" asp-controller="street" >
+            <form method="post" asp-action="edit" asp-controller="street">
                 <div class="row g-3 mb-4">
                     <div class="col-sm-12">
                         <label asp-for="StreetName" class="form-label">Street name</label>
                         <input asp-for="StreetName" class="form-control" placeholder="">
-                        <span asp-validation-for="StreetName" class="text-danger small">                    
-                        </span> 
+                        <span asp-validation-for="StreetName" class="text-danger small">
+                        </span>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
                 </div>
-            </form>        
+            </form>
         </div>
     </div>
 </div>

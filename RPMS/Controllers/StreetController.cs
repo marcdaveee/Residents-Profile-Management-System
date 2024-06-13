@@ -24,20 +24,81 @@ namespace RPMS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CreateStreetVM newStreet)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(CreateStreetViewModel newStreet)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(newStreet);
-            }
+                var streetModel = new Street
+                {
+                    StreetName = newStreet.StreetName,
+                    AddressId = 1   
+                };
 
-            var streetModel = new Street
+                await _streetRepo.AddStreet(streetModel);
+                return RedirectToAction("Index", "Address");
+                
+            }
+            return View(newStreet);
+
+        }
+
+        public async Task <IActionResult> Edit(int id)
+        {
+            var streetModel = await _streetRepo.GetById(id);
+
+            if (streetModel == null)
             {
-                StreetName = newStreet.StreetName
+                return View("Error");
+            }            
+
+            var modelToEdit = new EditStreetViewModel
+            {
+                StreetName = streetModel.StreetName,
+                AddressId = streetModel.AddressId,
             };
 
-            await _streetRepo.AddStreet(streetModel);
-            return View("Address");
+            return View(modelToEdit);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, EditStreetViewModel updatedStreet)
+        {
+            var streetModel = await _streetRepo.GetById(id);
+
+            if(streetModel == null)
+            {
+                return View("Error");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(updatedStreet);
+            }
+
+            await _streetRepo.Edit(streetModel, updatedStreet);
+
+            return RedirectToAction("Index", "Address");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var streetModel = await _streetRepo.GetById(id);
+
+            if (streetModel == null)
+            {
+                return View("Error");
+            }            
+
+            await _streetRepo.Delete(streetModel);
+
+            return RedirectToAction("Index", "Address");
+
+        }
+        
     }
 }

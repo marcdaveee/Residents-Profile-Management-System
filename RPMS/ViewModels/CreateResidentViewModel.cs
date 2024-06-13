@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RPMS.ViewModels
 {
-    public class CreateResidentVM
+    public class CreateResidentViewModel
     {
         [Required]
         public string Firstname { get; set; } = string.Empty;
@@ -34,6 +34,6 @@ namespace RPMS.ViewModels
         [EmailAddress]
         public string? Email { get; set; } = string.Empty;
 
-        public CreateAddressVM? Address { get; set; }
+        public CreateAddressViewModel? Address { get; set; }
     }
 }

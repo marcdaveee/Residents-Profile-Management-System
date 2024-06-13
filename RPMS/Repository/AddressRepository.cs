@@ -16,7 +16,7 @@ namespace RPMS.Repository
 
         public async Task<Address>? GetAddress()
         {
-            var address = await _context.Addresses.Include(s => s.Streets).FirstOrDefaultAsync(a => a.Id == 1);
+            var address = await _context.Addresses.Include(s => s.Streets).FirstAsync();
             
 
             return address;

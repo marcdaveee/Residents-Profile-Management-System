@@ -75,8 +75,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
-                            @foreach(var item in Model.Streets)
+
+                            @{int count = 0; }
+
+                            @for(int i = 0; i < Model.Streets.Count; i++)
+                            {
+                                count += 1;
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@Model.Streets[i].StreetName</td>
+                                    <td class="flex">
+                                       <a asp-controller="street" asp-action="edit" asp-route-id="@Model.Streets[i].Id" class="btn btn-primary btn-sm">Edit</a>
+                                       <div>
+                                            <form method="post" asp-action="delete" asp-controller="street">
+                                                <input hidden value="@Model.Streets[i].Id" />
+                                                <button type="submit" class="btn-danger">Delete</button>
+                                            </form>
+                                       </div>
+                                       
+                                        
+                                    </td>
+                                </tr>
+                            }
+
+@*                             @foreach(var item in Model.Streets)
                             {
                                 <tr>
 
@@ -85,7 +107,7 @@
                                         <a asp-controller="street" asp-action="edit" class="btn btn-primary">Edit</a>
                                 </tr>
                             }                     
-                                
+ *@                                
                         </tbody>
                     </table>
                 </div>

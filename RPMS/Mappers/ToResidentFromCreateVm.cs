@@ -5,7 +5,7 @@ namespace RPMS.Mappers
 {
     public static class ToResidentFromCreateVm
     {
-        public static Resident toResidentFromCreateResidentVm(this CreateResidentVM createdResident)
+        public static Resident toResidentFromCreateResidentVm(this CreateResidentViewModel createdResident)
         {
             return new Resident
             {
