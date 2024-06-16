@@ -19,6 +19,11 @@ namespace RPMS.Controllers
             return View(address);
         }
         
+        public  IActionResult Edit(int id)
+        {
+            
+            return View();
+        }
 
     }
 }

@@ -83,8 +83,7 @@ namespace RPMS.Controllers
 
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+                
         public async Task<IActionResult> Delete(int id)
         {
             var streetModel = await _streetRepo.GetById(id);

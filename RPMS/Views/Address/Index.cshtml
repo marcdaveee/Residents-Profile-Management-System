@@ -6,7 +6,7 @@
 }
 <div class="mx-3 mt-3 mb-4">
     <div class="row">
-        <div class="col-lg-4 pb-5">
+        <div class="col-lg-6 pb-5">
             <!-- Main Address-->
             <div class="card">
                 <div class="card-header font-weight-bold">
@@ -45,7 +45,7 @@
        
         </div>
         <!-- Streets Table-->
-        <div class="col-lg-8 pb-5">
+        <div class="col-lg-6 pb-5">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5>
@@ -84,30 +84,14 @@
                                 <tr>
                                     <td>@count</td>
                                     <td>@Model.Streets[i].StreetName</td>
-                                    <td class="flex">
+                                    <td class="">
                                        <a asp-controller="street" asp-action="edit" asp-route-id="@Model.Streets[i].Id" class="btn btn-primary btn-sm">Edit</a>
-                                       <div>
-                                            <form method="post" asp-action="delete" asp-controller="street">
-                                                <input hidden value="@Model.Streets[i].Id" />
-                                                <button type="submit" class="btn-danger">Delete</button>
-                                            </form>
-                                       </div>
-                                       
-                                        
+                                        <a asp-controller="street" asp-action="delete" asp-route-id="@Model.Streets[i].Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this street (@Model.Streets[i].StreetName)?')">Delete</a>                                             
                                     </td>
-                                </tr>
-                            }
 
-@*                             @foreach(var item in Model.Streets)
-                            {
-                                <tr>
-
-                                    <td>@item.StreetName</td>
-                                    <td>
-                                        <a asp-controller="street" asp-action="edit" class="btn btn-primary">Edit</a>
                                 </tr>
-                            }                     
- *@                                
+                           }
+                     
                         </tbody>
                     </table>
                 </div>

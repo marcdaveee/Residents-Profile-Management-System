@@ -28,16 +28,17 @@ namespace RPMS.Repository
             throw new NotImplementedException();
         }
 
-        
+
+        public Task<bool> Update(Address addressToUpdate, EditAddressViewModel updatedAddress)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public Task<bool> SaveChanges()
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Update(Address newAddress)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
