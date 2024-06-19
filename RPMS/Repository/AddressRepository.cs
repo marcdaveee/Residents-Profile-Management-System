@@ -2,6 +2,7 @@
 using RPMS.Data;
 using RPMS.Interfaces;
 using RPMS.Models;
+using RPMS.ViewModels;
 
 namespace RPMS.Repository
 {
@@ -16,29 +17,38 @@ namespace RPMS.Repository
 
         public async Task<Address>? GetAddress()
         {
-            var address = await _context.Addresses.Include(s => s.Streets).FirstAsync();
+            var address = await _context.Addresses.Include(s => s.Streets).FirstOrDefaultAsync();
             
-
             return address;
             
         }
 
-        public Task<bool> Add(Address newAddress)
+        public async Task<bool> Add(Address addressModel)
         {
-            throw new NotImplementedException();
+            
+            await _context.AddAsync(addressModel);
+            return await SaveChanges();
         }
 
 
-        public Task<bool> Update(Address addressToUpdate, EditAddressViewModel updatedAddress)
+        public async Task<bool> Update(Address addressToUpdate, EditAddressViewModel updatedAddress)
         {
-            throw new NotImplementedException();
+            addressToUpdate.Brgy = updatedAddress.Brgy;
+            addressToUpdate.Municipality = updatedAddress.Municipality; 
+            addressToUpdate.Town = updatedAddress.Town;
+
+            return await SaveChanges();
         }
 
 
-        public Task<bool> SaveChanges()
+        public async Task<bool> SaveChanges()
         {
-            throw new NotImplementedException();
+            var result = await _context.SaveChangesAsync();
+            if(result >= 0)
+            {
+                return true;
+            }
+            return false;
         }
-
     }
 }

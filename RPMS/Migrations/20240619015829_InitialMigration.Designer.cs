@@ -12,8 +12,8 @@ using RPMS.Data;
 namespace RPMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240608032826_NewMigration")]
-    partial class NewMigration
+    [Migration("20240619015829_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

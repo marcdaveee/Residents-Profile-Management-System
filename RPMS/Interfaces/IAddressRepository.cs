@@ -1,4 +1,5 @@
 ﻿using RPMS.Models;
+using RPMS.ViewModels;
 
 namespace RPMS.Interfaces
 {
@@ -6,9 +7,9 @@ namespace RPMS.Interfaces
     {
         Task<Address>? GetAddress(); 
 
-        Task<bool> Add(Address newAddress);
+        Task<bool> Add(Address addressModel);
 
-        Task<bool> Update(Address newAddress);
+        Task<bool> Update(Address addressToUpdate, EditAddressViewModel updatedAddress);
 
         Task<bool> SaveChanges();
     }

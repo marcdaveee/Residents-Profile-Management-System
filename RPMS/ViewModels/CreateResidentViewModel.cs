@@ -34,6 +34,8 @@ namespace RPMS.ViewModels
         [EmailAddress]
         public string? Email { get; set; } = string.Empty;
 
-        public CreateAddressViewModel? Address { get; set; }
+        public Address? Address { get; set; }
+
+        public Street? Street { get; set; }
     }
 }
