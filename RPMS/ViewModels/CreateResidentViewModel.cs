@@ -23,7 +23,7 @@ namespace RPMS.ViewModels
         [Required]
         public string Status { get; set; } = string.Empty;
 
-        [Required]
+        [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
 
         [Required]
@@ -34,8 +34,16 @@ namespace RPMS.ViewModels
         [EmailAddress]
         public string? Email { get; set; } = string.Empty;
 
-        public Address? Address { get; set; }
+        //public Address? Address { get; set; }
+        [Required]
+        [ForeignKey("Address")]
+        public int AddressId { get; set; }
 
-        public Street? Street { get; set; }
+        //public Street? Street { get; set; }
+
+        [Required]
+        [ForeignKey("Street")]
+        public int StreetId { get; set; }
+
     }
 }

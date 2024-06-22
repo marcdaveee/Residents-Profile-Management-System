@@ -17,7 +17,7 @@ namespace RPMS.Repository
         public async Task<IEnumerable<Resident>> GetAllResidents()
         {
             //var residents = await _context.Residents.Include(r => r.Address).Select(a => a.Age = DateTime.Now.Subtract(a.Birthday).).ToListAsync();
-            var residents = await _context.Residents.Include(r => r.Address).Include(r => r.Street).ToListAsync();
+            var residents = await _context.Residents.Include(r => r.Street).ToListAsync();
 
             return residents;
         }
