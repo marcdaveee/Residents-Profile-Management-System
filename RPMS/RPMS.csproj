@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Resident\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.3.3" />
     <PackageReference Include="BootstrapIcons.AspNetCore" Version="1.11.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
@@ -23,6 +27,18 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Resident\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Resident\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Resident\Edit.cshtml" />
   </ItemGroup>
 
 </Project>

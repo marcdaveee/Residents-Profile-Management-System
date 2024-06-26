@@ -52,52 +52,78 @@
                         <!-- Form Group (first name)-->
                         <div class="col-md-4">
                             <label class="small mb-1" for="inputFirstName">First name</label>
-                            <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="@Model.Firstname">
+                            <input readonly class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="@Model.Firstname">
                         </div>
 
                         <div class="col-md-4">
                             <label class="small mb-1" for="inputMiddleName">Middle name</label>
-                            <input class="form-control" id="inputMiddleName" type="text" placeholder="Enter your first name" value="@Model.Middlename">
+                            <input readonly class="form-control" id="inputMiddleName" type="text" placeholder="Enter your first name" value="@Model.Middlename">
                         </div>
                         <!-- Form Group (last name)-->
                         <div class="col-md-4">
                             <label class="small mb-1" for="inputLastName">Last name</label>
-                            <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="@Model.Lastname">
+                            <input readonly class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="@Model.Lastname">
                         </div>
                     </div>
                     <!-- Form Row        -->
-                    <div class="row gx-3 mb-3">
-                        <!-- Form Group (organization name)-->
+                    <div class="row gx-3 mb-4">
+                        <!-- Form Group (age, birthday)-->
                         <div class="col-md-2">
                             <label class="small mb-1" for="inputAge">Age</label>
                             <input readonly class="form-control" id="inputAge" type="number" placeholder="Enter your organization name" value="@Model.Age">
                         </div>
-                        <!-- Form Group (location)-->
-                        <div class="col-md-10">
-                            <label class="small mb-1" for="inputLocation">Location</label>
-                            <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="To work on">
-                        </div>
-                    </div>
-                    <!-- Form Group (email address)-->
-                    <div class="mb-3">
-                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="@Model.Email">
-                    </div>
-                    <!-- Form Row-->
-                    <div class="row gx-3 mb-3">
-                        <!-- Form Group (phone number)-->
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="inputPhone">Phone number</label>
-                            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="@Model.ContactNo">
-                        </div>
-                        <!-- Form Group (birthday)-->
+
                         <div class="col-md-6">
                             <label class="small mb-1" for="inputBirthday">Birthday</label>
-                            <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="@Model.Birthday.ToLongDateString()">
+                            <input readonly class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="@Model.Birthday.ToLongDateString()">
                         </div>
                     </div>
+
+                    <!-- Form Group (Street)-->
+                    <div class="row mb-2">
+                        <div class="col-md-auto">
+                            <label class="small mb-1" for="inputStreet">Street</label>
+                            <input readonly class="form-control" id="inputStreet" type="text" placeholder="Enter your location" value="@Model.Street.StreetName">
+                        </div>
+                    </div>
+                    
+                    <div class="row gx-3 mb-4">                        
+                        <!-- Form Group (Address)-->                      
+
+                        <div class="col-md-4">
+                            <label class="small mb-1" for="inputBrgy">Brgy.</label>
+                            <input readonly class="form-control" id="inputBrgy" type="text" placeholder="Enter your location" value="@Model.Address.Brgy">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="small mb-1" for="inputMunicipality">Municipality</label>
+                            <input readonly class="form-control" id="inputMunicipality" type="text" placeholder="Enter your location" value="@Model.Address.Municipality">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="small mb-1" for="inputProvince">Province</label>
+                            <input readonly class="form-control" id="inputProvince" type="text" placeholder="Enter your location" value="@Model.Address.Town">
+                        </div>
+                    </div>
+                    <!-- Form Group (email address, phone number)-->
+                    <div class="row gx-3 mb-5">
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                            <input readonly class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="@Model.Email">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputPhone">Phone number</label>
+                            <input readonly class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="@Model.ContactNo">
+                        </div>
+                        
+                    </div>
+                   
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary" type="button">Edit Details</button>
+                    </div>
                     <!-- Save changes button-->
-                    <button class="btn btn-primary" type="button">Save changes</button>
+                    
                 </form>
             </div>
         </div>
