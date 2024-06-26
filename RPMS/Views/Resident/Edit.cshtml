@@ -1,17 +1,12 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-@model Resident
-
-
+﻿@using RPMS.ViewModels
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
+
+@model EditResidentViewModel
+
 
 <div class="mx-3 mt-3">
     <a asp-controller="resident" asp-action="Index" class="btn btn-outline-dark">
@@ -45,67 +40,109 @@
     <div class="col-xl-8">
         <!-- Account details card-->
         <div class="card mb-4">
-            <div class="card-header">Resident Details</div>
+            <div class="card-header">Edit Resident Details</div>
             <div class="card-body">
-                <form>
-                    <!-- Form Group (username)-->
-                    @* <div class="mb-3">
-                    <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                    <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
-                    </div> *@
+                <form method="post" asp-action="edit" asp-controller="resident">
+                    <!-- Form Group (username)-->                    
                     <!-- Form Row-->
                     <div class="row gx-3 mb-3">
                         <!-- Form Group (first name)-->
                         <div class="col-md-4">
-                            <label class="small mb-1" for="inputFirstName">First name</label>
-                            <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="@Model.Firstname">
+                            <label class="small mb-1" asp-for="Firstname">First name</label>
+                            <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" asp-for="Firstname">
                         </div>
 
                         <div class="col-md-4">
-                            <label class="small mb-1" for="inputMiddleName">Middle name</label>
-                            <input class="form-control" id="inputMiddleName" type="text" placeholder="Enter your first name" value="@Model.Middlename">
+                            <label class="small mb-1" asp-for="Middlename">Middle name</label>
+                            <input class="form-control" id="inputMiddleName" type="text" placeholder="Enter your first name" asp-for="Middlename">
                         </div>
                         <!-- Form Group (last name)-->
                         <div class="col-md-4">
-                            <label class="small mb-1" for="inputLastName">Last name</label>
-                            <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="@Model.Lastname">
+                            <label class="small mb-1" asp-for="Lastname">Last name</label>
+                            <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" asp-for="Lastname">
                         </div>
                     </div>
+                    <input hidden asp-for="Age" />
                     <!-- Form Row        -->
-                    <div class="row gx-3 mb-3">
-                        <!-- Form Group (organization name)-->
-                        <div class="col-md-2">
-                            <label class="small mb-1" for="inputAge">Age</label>
-                            <input readonly class="form-control" id="inputAge" type="number" placeholder="Enter your organization name" value="@Model.Age">
+                    <div class="row gx-3 mb-4">
+                        <!-- Form Group (age, birthday)-->
+                        
+                        <div class="col-md-3">
+                            <label asp-for="Gender" class="form-label small mb-1">Sex</label>
+                            <select asp-for="Gender" class="form-select" asp-for="Gender" required>
+                                <option value="">Choose...</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger">
+                            </span>
                         </div>
-                        <!-- Form Group (location)-->
-                        <div class="col-md-10">
-                            <label class="small mb-1" for="inputLocation">Location</label>
-                            <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="To work on">
+
+                        <div class="col-md-3">
+                            <label asp-for="Status" class="form-label small mb-1">Sex</label>
+                            <select asp-for="Status" class="form-select" asp-for="Status" required>
+                                <option value="">Choose...</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="small mb-1" asp-for="Birthday">Birthday</label>
+                            <input asp-for="Birthday" class="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Enter your birthday">
+                        </div>
+                    </div>                    
+
+                    <!-- Form Group (Street)-->
+                    <div class="row mb-2">
+                        <div class="col-md-auto">
+                            <label class="small mb-1" asp-for="StreetId">Street</label>
+                            <select class="form-select" asp-for="StreetId" asp-items="@(new SelectList(ViewBag.StreetList, "Value", "Text", "Selected"))">
+                            </select>
                         </div>
                     </div>
-                    <!-- Form Group (email address)-->
-                    <div class="mb-3">
-                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="@Model.Email">
+
+                    <div class="row gx-3 mb-4">
+                        <!-- Form Group (Address)-->
+
+                        <div class="col-md-4">
+                            <label class="small mb-1" for="inputBrgy">Brgy.</label>
+                            <input readonly class="form-control" id="inputBrgy" type="text" placeholder="Enter your location" value="@ViewBag.MainAddress.Brgy">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="small mb-1" for="inputMunicipality">Municipality</label>
+                            <input readonly class="form-control" id="inputMunicipality" type="text" placeholder="Enter your location" value="@ViewBag.MainAddress.Municipality">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="small mb-1" for="inputProvince">Province</label>
+                            <input readonly class="form-control" id="inputProvince" type="text" placeholder="Enter your location" value="@ViewBag.MainAddress.Town">
+                        </div>
                     </div>
-                    <!-- Form Row-->
-                    <div class="row gx-3 mb-3">
-                        <!-- Form Group (phone number)-->
+                    <!-- Form Group (email address, phone number)-->
+                    <div class="row gx-3 mb-5">
                         <div class="col-md-6">
-                            <label class="small mb-1" for="inputPhone">Phone number</label>
-                            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="@Model.ContactNo">
+                            <label class="small mb-1" asp-for="Email">Email address</label>
+                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" asp-for="Email">
                         </div>
-                        <!-- Form Group (birthday)-->
+
                         <div class="col-md-6">
-                            <label class="small mb-1" for="inputBirthday">Birthday</label>
-                            <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="@Model.Birthday.ToLongDateString()">
+                            <label class="small mb-1" asp-for="ContactNo">Phone number</label>
+                            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" asp-for="ContactNo">
                         </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary" type="submit">Save Changes</button>
                     </div>
                     <!-- Save changes button-->
-                    <button class="btn btn-primary" type="button">Save changes</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+

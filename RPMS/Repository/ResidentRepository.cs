@@ -2,6 +2,7 @@
 using RPMS.Data;
 using RPMS.Interfaces;
 using RPMS.Models;
+using RPMS.ViewModels;
 
 namespace RPMS.Repository
 {
@@ -37,6 +38,22 @@ namespace RPMS.Repository
         public async Task<bool> Add(Resident resident)
         {
             await _context.AddAsync(resident);
+
+            return await Save();
+        }
+
+        public async Task<bool> Update(Resident residentModel, EditResidentViewModel updatedResident)
+        {
+            residentModel.Firstname = updatedResident.Firstname;
+            residentModel.Lastname = updatedResident.Lastname;
+            residentModel.Middlename = updatedResident.Middlename;
+            residentModel.Age = updatedResident.Age;
+            residentModel.Gender = updatedResident.Gender;
+            residentModel.Status = updatedResident.Status;
+            residentModel.Birthday = updatedResident.Birthday;
+            residentModel.ContactNo = updatedResident.ContactNo;
+            residentModel.Email = updatedResident.Email;            
+            residentModel.StreetId  = Convert.ToInt32(updatedResident.StreetId);
 
             return await Save();
         }

@@ -92,5 +92,89 @@ namespace RPMS.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var resident = await _residentRepository.GetResidentById(id);
+                                   
+            if(resident == null)
+            {
+                return View("Error");
+            }
+
+            var residentToEdit = new EditResidentViewModel
+            {
+                Firstname = resident.Firstname,
+                Lastname = resident.Lastname,
+                Middlename = resident.Middlename,
+                Age = resident.Age,
+                Gender = resident.Gender,
+                Status = resident.Status,
+                Birthday = resident.Birthday,
+                ContactNo = resident.ContactNo,
+                Email = resident.Email,
+                AddressId = resident.AddressId,
+                StreetId = Convert.ToInt32(resident.StreetId),
+            };
+
+            var mainAddress = await _addressRepository.GetAddress();
+            ViewBag.MainAddress = mainAddress;
+
+            var streetList = mainAddress.Streets.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.StreetName, Selected = false }).ToList();
+            
+            foreach(var street in streetList)
+            {
+                if(street.Value == id.ToString())
+                {
+                    street.Selected = true;
+                }
+            }
+
+            ViewBag.StreetList = streetList;
+
+            return View("Edit", residentToEdit);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, EditResidentViewModel updatedResident)
+        {
+
+            var residentModel = await _residentRepository.GetResidentById(id);
+
+            if (residentModel == null)
+            {
+                return View("Error");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var mainAddress = await _addressRepository.GetAddress();
+                ViewBag.MainAddress = mainAddress;
+
+                var streetList = mainAddress.Streets.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.StreetName, Selected = false }).ToList();
+
+                foreach (var street in streetList)
+                {
+                    if (street.Value == id.ToString())
+                    {
+                        street.Selected = true;
+                    }
+                }
+
+                ViewBag.StreetList = streetList;
+                return View(updatedResident);
+            }
+
+            var updateResult = await _residentRepository.Update(residentModel, updatedResident);
+
+            if(updateResult == false)
+            {
+                return View("Error");
+            }
+          
+
+            return RedirectToAction("Details", new { Id = id});
+        }
     }
 }

@@ -1,11 +1,11 @@
-﻿using RPMS.Models;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace RPMS.ViewModels
 {
-    public class CreateResidentViewModel
+    public class EditResidentViewModel
     {
+
         [Required]
         public string Firstname { get; set; } = string.Empty;
 
@@ -14,7 +14,7 @@ namespace RPMS.ViewModels
 
         [Required]
         public string Middlename { get; set; } = string.Empty;
-        
+
         public int Age { get; set; }
 
         [Required]
@@ -25,10 +25,10 @@ namespace RPMS.ViewModels
 
         [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
-        
-        [MinLength(11, ErrorMessage="Must be 11-digit number")]
+
+        [MinLength(11, ErrorMessage = "Must be 11-digit number")]
         public string? ContactNo { get; set; } = string.Empty;
-        
+
         [EmailAddress]
         public string? Email { get; set; } = string.Empty;
 
@@ -42,6 +42,5 @@ namespace RPMS.ViewModels
         [Required]
         [ForeignKey("Street")]
         public int StreetId { get; set; }
-
     }
 }

@@ -5,10 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="Views\Resident\Edit.cshtml" />
-  </ItemGroup>
+  
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.3.3" />
@@ -29,16 +26,6 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Resident\Edit.cshtml" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Resident\Edit.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Resident\Edit.cshtml" />
-  </ItemGroup>
 
 </Project>

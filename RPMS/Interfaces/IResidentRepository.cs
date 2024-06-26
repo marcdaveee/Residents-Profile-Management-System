@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RPMS.Models;
+using RPMS.ViewModels;
 
 namespace RPMS.Interfaces
 {
@@ -10,6 +11,8 @@ namespace RPMS.Interfaces
         Task<Resident>? GetResidentById(int id);
 
         Task<bool> Add(Resident resident);
+
+        Task<bool> Update(Resident residentModel, EditResidentViewModel updatedResident);
 
         Task<bool> Save();
     }
