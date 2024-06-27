@@ -9,7 +9,7 @@
 
 
 <div class="mx-3 mt-3">
-    <a asp-controller="resident" asp-action="Index" class="btn btn-outline-dark">
+    <a asp-controller="resident" asp-action="details" asp-route-id="@Model.Id" class="btn btn-outline-dark">
         <span>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
@@ -48,57 +48,66 @@
                     <div class="row gx-3 mb-3">
                         <!-- Form Group (first name)-->
                         <div class="col-md-4">
-                            <label class="small mb-1" asp-for="Firstname">First name</label>
+                            <label class="small mb-1" asp-for="Firstname">First name<span class="text-danger">*</span></label>
                             <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" asp-for="Firstname">
+                            <span asp-validation-for="Firstname" class="text-danger small">
+                            </span>
                         </div>
 
                         <div class="col-md-4">
                             <label class="small mb-1" asp-for="Middlename">Middle name</label>
                             <input class="form-control" id="inputMiddleName" type="text" placeholder="Enter your first name" asp-for="Middlename">
+                            <span asp-validation-for="Middlename" class="text-danger small">
+                            </span>
                         </div>
                         <!-- Form Group (last name)-->
                         <div class="col-md-4">
-                            <label class="small mb-1" asp-for="Lastname">Last name</label>
+                            <label class="small mb-1" asp-for="Lastname">Last name<span class="text-danger">*</span></label>
                             <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" asp-for="Lastname">
+                            <span asp-validation-for="Lastname" class="text-danger small">
+                            </span>
                         </div>
                     </div>
                     <input hidden asp-for="Age" />
+
                     <!-- Form Row        -->
                     <div class="row gx-3 mb-4">
                         <!-- Form Group (age, birthday)-->
                         
                         <div class="col-md-3">
-                            <label asp-for="Gender" class="form-label small mb-1">Sex</label>
-                            <select asp-for="Gender" class="form-select" asp-for="Gender" required>
+                            <label asp-for="Gender" class="form-label small mb-1">Sex<span class="text-danger">*</span></label>
+                            <select asp-for="Gender" class="form-select" asp-for="Gender" >
                                 <option value="">Choose...</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
-                            <span asp-validation-for="Gender" class="text-danger">
+                            <span asp-validation-for="Gender" class="text-danger small">
                             </span>
                         </div>
 
                         <div class="col-md-3">
-                            <label asp-for="Status" class="form-label small mb-1">Sex</label>
-                            <select asp-for="Status" class="form-select" asp-for="Status" required>
+                            <label asp-for="Status" class="form-label small mb-1">Status<span class="text-danger">*</span></label>
+                            <select asp-for="Status" class="form-select" asp-for="Status" >
                                 <option value="">Choose...</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
                             </select>
-                            <span asp-validation-for="Status" class="text-danger">
+                            <span asp-validation-for="Status" class="text-danger small">
                             </span>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="small mb-1" asp-for="Birthday">Birthday</label>
+                            <label class="small mb-1" asp-for="Birthday">Birthday<span class="text-danger">*</span></label>
                             <input asp-for="Birthday" class="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Enter your birthday">
+                            <span asp-validation-for="Birthday" class="text-danger small">
+                            </span>
                         </div>
                     </div>                    
 
                     <!-- Form Group (Street)-->
                     <div class="row mb-2">
                         <div class="col-md-auto">
-                            <label class="small mb-1" asp-for="StreetId">Street</label>
+                            <label class="small mb-1" asp-for="StreetId">Street<span class="text-danger">*</span></label>
                             <select class="form-select" asp-for="StreetId" asp-items="@(new SelectList(ViewBag.StreetList, "Value", "Text", "Selected"))">
                             </select>
                         </div>
@@ -125,13 +134,17 @@
                     <!-- Form Group (email address, phone number)-->
                     <div class="row gx-3 mb-5">
                         <div class="col-md-6">
-                            <label class="small mb-1" asp-for="Email">Email address</label>
+                            <label class="small mb-1" asp-for="Email">Email address <span class="text-muted">(Optional)</label>
                             <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" asp-for="Email">
+                            <span asp-validation-for="Email" class="text-danger small">
+                            </span>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="small mb-1" asp-for="ContactNo">Phone number</label>
+                            <label class="small mb-1" asp-for="ContactNo">Phone number <span class="text-muted">(Optional)</label>
                             <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" asp-for="ContactNo">
+                            <span asp-validation-for="ContactNo" class="text-danger small">
+                            </span>
                         </div>
 
                     </div>

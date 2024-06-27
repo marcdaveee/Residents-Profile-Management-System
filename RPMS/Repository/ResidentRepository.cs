@@ -58,6 +58,13 @@ namespace RPMS.Repository
             return await Save();
         }
 
+        public async Task<bool> Delete(Resident residentModel)
+        {
+            _context.Residents.Remove(residentModel);
+
+            return await Save();
+        }
+
         public async Task<bool> Save()
         {
             var result = await _context.SaveChangesAsync();

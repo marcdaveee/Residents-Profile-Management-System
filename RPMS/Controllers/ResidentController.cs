@@ -70,8 +70,17 @@ namespace RPMS.Controllers
 
                 ViewBag.MainAddress = mainAddress;
 
+                //Ensure that DoB is not more than the current year
+                if (newResident.Birthday > DateTime.Now)
+                {
+                    ModelState.AddModelError(nameof(newResident.Birthday), "Birthday is invalid.");
+                 
+                }
+
                 return View(newResident);
             }
+
+            
 
             var residentModel = new Resident
             {
@@ -104,6 +113,7 @@ namespace RPMS.Controllers
 
             var residentToEdit = new EditResidentViewModel
             {
+                Id = resident.Id,
                 Firstname = resident.Firstname,
                 Lastname = resident.Lastname,
                 Middlename = resident.Middlename,
@@ -114,7 +124,7 @@ namespace RPMS.Controllers
                 ContactNo = resident.ContactNo,
                 Email = resident.Email,
                 AddressId = resident.AddressId,
-                StreetId = Convert.ToInt32(resident.StreetId),
+                StreetId = Convert.ToInt32(resident.StreetId),                
             };
 
             var mainAddress = await _addressRepository.GetAddress();
@@ -175,6 +185,20 @@ namespace RPMS.Controllers
           
 
             return RedirectToAction("Details", new { Id = id});
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var residentModel = await _residentRepository.GetResidentById(id);
+
+            if (residentModel == null)
+            {
+                return View("Error");
+            }
+
+
+            await _residentRepository.Delete(residentModel);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -23,23 +23,23 @@
     <form method="post" asp-action="Add" class="needs-validation" novalidate>
         <div class="row g-3 mb-4">
             <div class="col-sm-4">
-                <label asp-for="Firstname" class="form-label">First name</label>
+                <label asp-for="Firstname" class="form-label">First name<span class="text-danger">*</span></label>
                 <input asp-for="Firstname" class="form-control" placeholder="" required>
-                <span asp-validation-for="Firstname" class="text-danger">                    
+                <span asp-validation-for="Firstname" class="text-danger small">                    
                 </span>
             </div>
 
             <div class="col-sm-4">
                 <label asp-for="Middlename" class="form-label">Middle name</label>
                 <input asp-for="Middlename" class="form-control" placeholder="" required>
-                <span asp-validation-for="Middlename" class="text-danger">
+                <span asp-validation-for="Middlename" class="text-danger small">
                 </span>
             </div>
 
             <div class="col-sm-4">
-                <label asp-for="Lastname" class="form-label">Last name</label>
-                <input class="form-control" asp-for="Lastname" placeholder="" required>
-                <span asp-validation-for="Lastname" class="text-danger">
+                <label asp-for="Lastname" class="form-label">Last name<span class="text-danger">*</span></label>
+                <input class="form-control" asp-for="Lastname" placeholder="">
+                <span asp-validation-for="Lastname" class="text-danger small">
                 </span>
             </div>
 
@@ -47,34 +47,34 @@
 
         <div class="row g-3 mb-5">
             <div class="col-md-2">
-                <label asp-for="Gender" class="form-label">Sex</label>
-                <select class="form-select" asp-for="Gender" required>
+                <label asp-for="Gender" class="form-label">Sex<span class="text-danger">*</span></label>
+                <select class="form-select" asp-for="Gender">
                     <option value="">Choose...</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
-                <span asp-validation-for="Gender" class="text-danger">
+                <span asp-validation-for="Gender" class="text-danger small">
                 </span>
             </div>
 
             <div class="col-md-3">
-                <label asp-for="Birthday" class="form-label">Birthday</label>
+                <label asp-for="Birthday" class="form-label">Birthday<span class="text-danger">*</span></label>
                 <div class="input-group has-validation">
                     <span class="input-group-text"></span>
                     <input type="date" class="form-control" asp-for="Birthday">                    
                 </div>
-                <span asp-validation-for="Birthday" class="text-danger">
+                <span asp-validation-for="Birthday" class="text-danger small">
                 </span>
             </div>
 
             <div class="col-md-2">
-                <label asp-for="Status" class="form-label">Sex</label>
-                <select class="form-select" asp-for="Status" required>
+                <label asp-for="Status" class="form-label">Status<span class="text-danger">*</span></label>
+                <select class="form-select" asp-for="Status">
                     <option value="">Choose...</option>
                     <option value="Single">Single</option>
                     <option value="Married">Married</option>
                 </select>
-                <span asp-validation-for="Status" class="text-danger">
+                <span asp-validation-for="Status" class="text-danger small">
                 </span>
             </div>
         </div>
@@ -90,14 +90,14 @@
                     <span class="input-group-text"></span>
                     <input class="form-control" asp-for="ContactNo" placeholder="11-digit phone number">                    
                 </div>
-                <span asp-validation-for="ContactNo" class="text-danger">
+                <span asp-validation-for="ContactNo" class="text-danger small">
                 </span>
             </div>
 
             <div class="col-4">
                 <label asp-for="Email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
                 <input class="form-control" asp-for="Email" placeholder="youremail@example.com">
-                <span asp-validation-for="Email" class="text-danger">
+                <span asp-validation-for="Email" class="text-danger small">
                 </span>
             </div>
         </div>
@@ -111,13 +111,13 @@
 
         <div class="row mb-5">
             <div class="col-3">
-                <label asp-for="StreetId" class="form-label">Street</label>
+                <label asp-for="StreetId" class="form-label">Street<span class="text-danger">*</span></label>
                 <div class="input-group">
                     <select class="form-select" asp-for="StreetId" asp-items="@(new SelectList(ViewBag.Streets, "Value", "Text"))">
                     </select>
                 </div>
                 
-                <span asp-validation-for="StreetId" class="text-danger">
+                <span asp-validation-for="StreetId" class="text-danger small">
                 </span>
                 
             </div>

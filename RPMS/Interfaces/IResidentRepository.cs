@@ -14,6 +14,8 @@ namespace RPMS.Interfaces
 
         Task<bool> Update(Resident residentModel, EditResidentViewModel updatedResident);
 
+        Task<bool> Delete(Resident residentModel);
+
         Task<bool> Save();
     }
 }

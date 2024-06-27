@@ -11,9 +11,8 @@ namespace RPMS.ViewModels
 
         [Required]
         public string Lastname { get; set; } = string.Empty;
-
-        [Required]
-        public string Middlename { get; set; } = string.Empty;
+        
+        public string? Middlename { get; set; } = string.Empty;
         
         public int Age { get; set; }
 
@@ -22,8 +21,8 @@ namespace RPMS.ViewModels
 
         [Required]
         public string Status { get; set; } = string.Empty;
-
-        [DataType(DataType.Date)]
+        
+        [DataType(DataType.Date, ErrorMessage = "The value must be a valid date")]
         public DateTime Birthday { get; set; }
         
         [MinLength(11, ErrorMessage="Must be 11-digit number")]
