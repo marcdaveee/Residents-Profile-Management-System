@@ -3,6 +3,7 @@ using RPMS.Data;
 using RPMS.Interfaces;
 using RPMS.Models;
 using RPMS.ViewModels;
+using System.Linq;
 
 namespace RPMS.Repository
 {
@@ -15,12 +16,31 @@ namespace RPMS.Repository
             _context = context;            
         }
 
-        public async Task<IEnumerable<Resident>> GetAllResidents()
+        public async Task<IEnumerable<Resident>> GetAllResidents(string sortBy)
         {
-            //var residents = await _context.Residents.Include(r => r.Address).Select(a => a.Age = DateTime.Now.Subtract(a.Birthday).).ToListAsync();
-            var residents = await _context.Residents.Include(r => r.Street).ToListAsync();
+            var residents = _context.Residents.Include(r => r.Street).AsQueryable();
 
-            return residents;
+            switch (sortBy)
+            {
+                case "name_desc":
+                    residents = residents.OrderByDescending(r => r.Lastname);
+                    break;
+
+                case "street":
+                    residents = residents.OrderBy(r => r.Street.StreetName);
+                    break;
+
+                case "street_desc":
+                    residents = residents.OrderByDescending(r => r.Street.StreetName);
+                    break;
+
+                default:
+                    residents = residents.OrderBy(r => r.Lastname);
+                    break;
+            }
+                        
+             
+            return await residents.AsNoTracking().ToListAsync();
         }
 
         public async Task<Resident>? GetResidentById(int id)

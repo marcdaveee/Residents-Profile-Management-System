@@ -19,9 +19,14 @@ namespace RPMS.Controllers
             _residentRepository = residentRepository;
             _addressRepository = addressRepository;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortBy)
         {
-            var residents = await _residentRepository.GetAllResidents();
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortBy) ? "name_desc" : "";
+            ViewData["StreetSortParm"] = sortBy == "street" ? "street_desc" : "street";
+            ViewData["SortedNameIcon"] = String.IsNullOrEmpty(sortBy) ? "bi bi-arrow-down" : "bi bi-arrow-up";
+            ViewData["SortedStreetIcon"] = sortBy == "street" ? "bi bi-arrow-down" : "bi bi-arrow-up";
+
+            var residents = await _residentRepository.GetAllResidents(sortBy);
 
             return View(residents);
         }
