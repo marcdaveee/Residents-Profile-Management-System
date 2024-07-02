@@ -87,13 +87,13 @@
                 <th>
                     <i class="@ViewData["SortedNameIcon"]" arial-hidden="true">
                     </i>
-                    <a asp-action="Index" asp-route-sortBy="@ViewData["NameSortParm"]" class="text-white">
+                    <a asp-action="Index" asp-route-sortBy="@ViewData["NameSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]" class="text-white">
                        Name
                     </a>
                 </th>
                 <th>
                     <i class="@ViewData["SortedStreetIcon"]" aria-hidden="true"></i>
-                    <a asp-action="Index" asp-route-sortBy="@ViewData["StreetSortParm"]" class="text-white">Street</a>
+                    <a asp-action="Index" asp-route-sortBy="@ViewData["StreetSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]" class="text-white">Street</a>
                 </th>
                 <th>Sex</th>
                  <th>Status</th>                
