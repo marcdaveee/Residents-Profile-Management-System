@@ -19,7 +19,7 @@ if (window.location.href.toLowerCase().includes("resident")) {
 
 }
 
-if (window.location.href.toLowerCase().includes("address") || window.location.href.toLowerCase().includes("street")) {
+if (window.location.href.toLowerCase().includes("address") || window.location.href.toLowerCase().includes("street") && !window.location.href.toLowerCase().includes("?")) {
     var link = mainNavLinks[1].childNodes[1];
     link.classList.add("active");
 

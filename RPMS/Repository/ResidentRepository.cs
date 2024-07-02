@@ -16,9 +16,14 @@ namespace RPMS.Repository
             _context = context;            
         }
 
-        public async Task<IEnumerable<Resident>> GetAllResidents(string sortBy)
+        public async Task<IEnumerable<Resident>> GetAllResidents(string sortBy, string searchString)
         {
             var residents = _context.Residents.Include(r => r.Street).AsQueryable();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                residents = residents.Where(r => r.Firstname.Contains(searchString) || r.Lastname.Contains(searchString));
+            }
 
             switch (sortBy)
             {

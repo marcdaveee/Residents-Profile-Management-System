@@ -11,17 +11,16 @@
 
     <div class="row justify-content-between align-items-center my-3">
         <div class="col-7">
-            <form class=" row g-3 align-items-center">
+            <form asp-action="index" method="get" class="row g-3 align-items-center">
                 <div class="col-5">
-                    <input type="text" class="form-control" aria-describedby="textSearch" placeholder="Juan Dela Cruz">
+                    <input type="text" class="form-control" aria-describedby="textSearch" placeholder="Juan Dela Cruz" value="@ViewData["CurrentFilter"]" name="searchString">
                 </div>
 
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-outline-success ">
+                    <button type="submit" class="btn btn-success ">
                         <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                            </svg>
+                            <i class="bi bi-search">                                
+                            </i>
                         </span>                        
                     </button>
                 </div>
@@ -83,17 +82,18 @@
         </table>
     </div> *@
     <table class="table table-hover align-middle mb-0 ">
-        <thead class="bg-dark text-white">
+        <thead class="bg-secondary bg-gradient text-white">
             <tr>
                 <th>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="@ViewData["SortedNameIcon"]" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
-                    </svg><a asp-action="Index" asp-route-sortBy="@ViewData["NameSortParm"]">Name</a>
+                    <i class="@ViewData["SortedNameIcon"]" arial-hidden="true">
+                    </i>
+                    <a asp-action="Index" asp-route-sortBy="@ViewData["NameSortParm"]" class="text-white">
+                       Name
+                    </a>
                 </th>
                 <th>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="@ViewData["SortedStreetIcon"]" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
-                    </svg><a asp-action="Index" asp-route-sortBy="@ViewData["StreetSortParm"]">Street</a>
+                    <i class="@ViewData["SortedStreetIcon"]" aria-hidden="true"></i>
+                    <a asp-action="Index" asp-route-sortBy="@ViewData["StreetSortParm"]" class="text-white">Street</a>
                 </th>
                 <th>Sex</th>
                  <th>Status</th>                

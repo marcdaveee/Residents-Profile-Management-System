@@ -19,14 +19,36 @@ namespace RPMS.Controllers
             _residentRepository = residentRepository;
             _addressRepository = addressRepository;
         }
-        public async Task<IActionResult> Index(string sortBy)
+        public async Task<IActionResult> Index(string sortBy, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortBy) ? "name_desc" : "";
             ViewData["StreetSortParm"] = sortBy == "street" ? "street_desc" : "street";
-            ViewData["SortedNameIcon"] = String.IsNullOrEmpty(sortBy) ? "bi bi-arrow-down" : "bi bi-arrow-up";
-            ViewData["SortedStreetIcon"] = sortBy == "street" ? "bi bi-arrow-down" : "bi bi-arrow-up";
+            ViewData["CurrentFilter"] = searchString;
 
-            var residents = await _residentRepository.GetAllResidents(sortBy);
+            // Handles Ascending and Descending Arrow Icon
+
+            if(String.IsNullOrEmpty(sortBy))
+            {
+                ViewData["SortedNameIcon"] = "bi bi-arrow-down";
+                ViewData["SortedStreetIcon"]= "";
+            }
+            else if (sortBy.Equals("name_desc"))
+            {
+                ViewData["SortedNameIcon"] = "bi bi-arrow-up";
+                ViewData["SortedStreetIcon"] = "";
+            }
+            else if (sortBy.Equals("street_desc"))
+            {
+                ViewData["SortedStreetIcon"] = "bi bi-arrow-up";
+                ViewData["SortedNameIcon"] = "";                
+            }
+            else
+            {
+                ViewData["SortedStreetIcon"] = "bi bi-arrow-down";
+                ViewData["SortedNameIcon"] = "";
+            }
+
+            var residents = await _residentRepository.GetAllResidents(sortBy, searchString);
 
             return View(residents);
         }

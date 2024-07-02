@@ -6,7 +6,7 @@ namespace RPMS.Interfaces
 {
     public interface IResidentRepository
     {
-        Task <IEnumerable<Resident>> GetAllResidents(string sortBy);
+        Task <IEnumerable<Resident>> GetAllResidents(string sortBy, string searchString);
 
         Task<Resident>? GetResidentById(int id);
 
