@@ -19,11 +19,13 @@ namespace RPMS.Controllers
             _residentRepository = residentRepository;
             _addressRepository = addressRepository;
         }
-        public async Task<IActionResult> Index(string sortBy, string searchString)
+        public async Task<IActionResult> Index(string sortBy, string searchString, int currentPage = 1)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortBy) ? "name_desc" : "";
             ViewData["StreetSortParm"] = sortBy == "street" ? "street_desc" : "street";
             ViewData["CurrentFilter"] = searchString;
+            
+            
 
             // Handles Ascending and Descending Arrow Icon
 
@@ -31,24 +33,41 @@ namespace RPMS.Controllers
             {
                 ViewData["SortedNameIcon"] = "bi bi-arrow-down";
                 ViewData["SortedStreetIcon"]= "";
+
+                ViewData["SortByValue"] = "";
             }
             else if (sortBy.Equals("name_desc"))
             {
                 ViewData["SortedNameIcon"] = "bi bi-arrow-up";
                 ViewData["SortedStreetIcon"] = "";
+
+                ViewData["SortByValue"] = "name_desc";
             }
             else if (sortBy.Equals("street_desc"))
             {
                 ViewData["SortedStreetIcon"] = "bi bi-arrow-up";
-                ViewData["SortedNameIcon"] = "";                
+                ViewData["SortedNameIcon"] = "";
+
+                ViewData["SortByValue"] = "street_desc";
             }
             else
             {
                 ViewData["SortedStreetIcon"] = "bi bi-arrow-down";
                 ViewData["SortedNameIcon"] = "";
+
+                ViewData["SortByValue"] = "street";
             }
 
-            var residents = await _residentRepository.GetAllResidents(sortBy, searchString);
+            int pageSize = 7;            
+            var residents = await _residentRepository.GetAllResidents(sortBy, searchString, pageSize, currentPage);
+
+            int totalRecords = residents.Count();
+            int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);    
+            residents = residents.Skip((currentPage - 1) * pageSize).Take(pageSize);
+
+            ViewData["CurrentPage"] = currentPage;
+            ViewData["HasPrevPage"] = currentPage > 1 ? true : false;
+            ViewData["HasNextPage"] = currentPage < totalPages ? true : false;
 
             return View(residents);
         }
