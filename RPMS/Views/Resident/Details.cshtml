@@ -86,9 +86,13 @@
                             <input readonly class="form-control" id="inputStatus" type="text" placeholder="Enter your organization name" value="@Model.Status">
                         </div>
 
+                        @{
+                            var birthdate = @Model.Birthday.HasValue ? @Model.Birthday.Value.ToLongDateString() : "";
+                        }
+
                         <div class="col-md-6">
                             <label class="small mb-1" for="inputBirthday">Birthday</label>
-                            <input readonly class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="@Model.Birthday.ToLongDateString()">
+                            <input readonly class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="@birthdate">
                         </div>
                     </div>
 

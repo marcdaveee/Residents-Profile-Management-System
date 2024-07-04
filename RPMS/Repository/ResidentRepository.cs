@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RPMS.Data;
 using RPMS.Interfaces;
 using RPMS.Models;
@@ -16,13 +17,18 @@ namespace RPMS.Repository
             _context = context;            
         }
 
-        public async Task<IEnumerable<Resident>> GetAllResidents(string sortBy, string searchString, int pageSize, int currentPage)
+        public async Task<IEnumerable<Resident>> GetAllResidents(string sortBy, string searchString, int pageSize, int currentPage, string streetId)
         {
             var residents = _context.Residents.Include(r => r.Street).AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 residents = residents.Where(r => r.Firstname.Contains(searchString) || r.Lastname.Contains(searchString));
+            }
+
+            if (!String.IsNullOrEmpty(streetId))
+            {
+                residents = residents.Where(r => r.StreetId == Convert.ToInt32(streetId));
             }
 
             switch (sortBy)
@@ -43,8 +49,8 @@ namespace RPMS.Repository
                     residents = residents.OrderBy(r => r.Lastname);
                     break;
             }
-                        
-             
+            
+
             return await residents.AsNoTracking().ToListAsync();
         }
 
@@ -79,6 +85,7 @@ namespace RPMS.Repository
             residentModel.ContactNo = updatedResident.ContactNo;
             residentModel.Email = updatedResident.Email;            
             residentModel.StreetId  = Convert.ToInt32(updatedResident.StreetId);
+            
 
             return await Save();
         }

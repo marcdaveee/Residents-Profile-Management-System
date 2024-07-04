@@ -25,7 +25,7 @@ namespace RPMS.ViewModels
         public string Status { get; set; } = string.Empty;
 
         [DataType(DataType.Date, ErrorMessage = "The value must be a valid date")]
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
         [MinLength(11, ErrorMessage = "Must be 11-digit number")]
         public string? ContactNo { get; set; } = string.Empty;

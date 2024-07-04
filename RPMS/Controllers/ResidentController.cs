@@ -19,11 +19,12 @@ namespace RPMS.Controllers
             _residentRepository = residentRepository;
             _addressRepository = addressRepository;
         }
-        public async Task<IActionResult> Index(string sortBy, string searchString, int currentPage = 1)
+        public async Task<IActionResult> Index(string sortBy, string searchString, string streetId, int currentPage = 1)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortBy) ? "name_desc" : "";
             ViewData["StreetSortParm"] = sortBy == "street" ? "street_desc" : "street";
             ViewData["CurrentFilter"] = searchString;
+            ViewData["StreetIdValue"] = streetId;
             
             
 
@@ -58,16 +59,26 @@ namespace RPMS.Controllers
                 ViewData["SortByValue"] = "street";
             }
 
-            int pageSize = 7;            
-            var residents = await _residentRepository.GetAllResidents(sortBy, searchString, pageSize, currentPage);
+            int pageSize = 8;            
+            var residents = await _residentRepository.GetAllResidents(sortBy, searchString, pageSize, currentPage, streetId);
 
             int totalRecords = residents.Count();
             int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);    
             residents = residents.Skip((currentPage - 1) * pageSize).Take(pageSize);
 
+            foreach(Resident resident in residents)
+            {
+                resident.Age = resident.Birthday.HasValue ? (DateTime.Today.Year - resident.Birthday.Value.Year) : 0;
+            }           
+
             ViewData["CurrentPage"] = currentPage;
             ViewData["HasPrevPage"] = currentPage > 1 ? true : false;
             ViewData["HasNextPage"] = currentPage < totalPages ? true : false;
+
+            //Get All Streets   
+            var streetList = await _addressRepository.GetAddress();
+            ViewBag.StreetList = streetList.Streets.Select(s => new { StreetId = s.Id.ToString(), StreetName = s.StreetName }).ToList();
+
 
             return View(residents);
         }
@@ -76,10 +87,13 @@ namespace RPMS.Controllers
         {
             var resident = await _residentRepository.GetResidentById(Id);
 
-            if(resident == null)
+            resident.Age = resident.Birthday.HasValue ? (DateTime.Today.Year - resident.Birthday.Value.Year) : 0;            
+
+            if (resident == null)
             {
                 return View("Error");
             }
+
 
             return View(resident);
         }
@@ -163,7 +177,7 @@ namespace RPMS.Controllers
                 Firstname = resident.Firstname,
                 Lastname = resident.Lastname,
                 Middlename = resident.Middlename,
-                Age = resident.Age,
+                Age =  resident.Birthday.HasValue ? (DateTime.Today.Year - resident.Birthday.Value.Year) : 0,
                 Gender = resident.Gender,
                 Status = resident.Status,
                 Birthday = resident.Birthday,
@@ -221,6 +235,7 @@ namespace RPMS.Controllers
                 ViewBag.StreetList = streetList;
                 return View(updatedResident);
             }
+            
 
             var updateResult = await _residentRepository.Update(residentModel, updatedResident);
 

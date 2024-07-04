@@ -20,7 +20,7 @@ namespace RPMS.Models
         public string Status { get; set; } = string.Empty;
 
         [DataType(DataType.Date)]
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
         public string? ContactNo { get; set; } = string.Empty;
 
