@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using RPMS.Models;
 
 namespace RPMS.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -19,6 +21,8 @@ namespace RPMS.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Resident>().HasOne(r => r.Street).WithMany(s => s.Residents).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Street>().HasOne(s => s.Address).WithMany(s => s.Streets).OnDelete(DeleteBehavior.Restrict);

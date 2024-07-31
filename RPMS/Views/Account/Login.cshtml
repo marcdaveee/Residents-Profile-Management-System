@@ -1,0 +1,44 @@
+﻿@using RPMS.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=39786
+*@
+
+@{
+    Layout = "~/Views/Shared/non-dashboard-layout.cshtml";
+}
+
+@model LoginViewModel
+
+@* <h4 class="text-info">Register</h4> *@
+<form asp-controller="Account" asp-action="Login" method="post" role="form">
+    <h4 class="text-info">Login</h4>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group mb-3">
+        <label asp-for="Email" class="col-md-2"></label>
+        <div class="col-md-10">
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>    
+    <div class="form-group mb-3">
+        <label asp-for="Password" class="col-md-2"></label>
+        <div class="col-md-10">
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group mb-4">
+        <label asp-for="RememberMe">
+            <input asp-for="RememberMe"/>
+            @Html.DisplayNameFor(m => m.RememberMe)
+        </label>
+        
+    </div>
+
+    <div class="form-group d-flex justify-content-start">
+        <div class="">
+            <button type="submit" class="btn btn-success">Login</button>
+        </div>
+    </div>
+</form>

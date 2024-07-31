@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RPMS.Data;
@@ -8,6 +9,7 @@ using RPMS.ViewModels;
 
 namespace RPMS.Controllers
 {
+    [Authorize]
     public class ResidentController : Controller
     {        
         private readonly IResidentRepository _residentRepository;
@@ -27,7 +29,6 @@ namespace RPMS.Controllers
             ViewData["StreetIdValue"] = streetId;
             
             
-
             // Handles Ascending and Descending Arrow Icon
 
             if(String.IsNullOrEmpty(sortBy))
@@ -59,8 +60,9 @@ namespace RPMS.Controllers
                 ViewData["SortByValue"] = "street";
             }
 
+            //Handles pagination
             int pageSize = 8;            
-            var residents = await _residentRepository.GetAllResidents(sortBy, searchString, pageSize, currentPage, streetId);
+            var residents = await _residentRepository.GetAllResidents(sortBy, searchString, streetId);
 
             int totalRecords = residents.Count();
             int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);    
@@ -230,9 +232,17 @@ namespace RPMS.Controllers
                     {
                         street.Selected = true;
                     }
-                }
+                }                
 
                 ViewBag.StreetList = streetList;
+
+                //Ensure that DoB is not more than the current year
+                if (updatedResident.Birthday > DateTime.Now)
+                {
+                    ModelState.AddModelError(nameof(updatedResident.Birthday), "Birthday is invalid.");
+
+                }
+
                 return View(updatedResident);
             }
             

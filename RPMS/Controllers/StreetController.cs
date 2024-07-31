@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RPMS.Interfaces;
 using RPMS.Models;
 using RPMS.ViewModels;
 
 namespace RPMS.Controllers
 {
+    [Authorize]
     public class StreetController : Controller
     {
         private IStreetRepository _streetRepo;

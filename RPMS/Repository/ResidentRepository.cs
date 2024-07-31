@@ -17,7 +17,7 @@ namespace RPMS.Repository
             _context = context;            
         }
 
-        public async Task<IEnumerable<Resident>> GetAllResidents(string sortBy, string searchString, int pageSize, int currentPage, string streetId)
+        public async Task<IEnumerable<Resident>> GetAllResidents(string sortBy, string searchString, string streetId)
         {
             var residents = _context.Residents.Include(r => r.Street).AsQueryable();
 
