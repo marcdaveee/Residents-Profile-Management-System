@@ -20,23 +20,23 @@
 <div class="row mx-3 my-3" style="width: 80%">
         
     <h4 class="mb-3">Personal Profile</h4>
-    <form method="post" asp-action="Add" class="needs-validation" novalidate>
+    <form enctype="multipart/form-data" method="post" asp-action="Add" asp-controller="resident" >
         <div class="row g-3 mb-4">
-            <div class="col-sm-4">
+            <div class="col-lg-3">
                 <label asp-for="Firstname" class="form-label">First name<span class="text-danger">*</span></label>
                 <input asp-for="Firstname" class="form-control" placeholder="" required>
                 <span asp-validation-for="Firstname" class="text-danger small">                    
                 </span>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-lg-3">
                 <label asp-for="Middlename" class="form-label">Middle name</label>
-                <input asp-for="Middlename" class="form-control" placeholder="" required>
+                <input asp-for="Middlename" class="form-control" placeholder="">
                 <span asp-validation-for="Middlename" class="text-danger small">
                 </span>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-lg-3">
                 <label asp-for="Lastname" class="form-label">Last name<span class="text-danger">*</span></label>
                 <input class="form-control" asp-for="Lastname" placeholder="">
                 <span asp-validation-for="Lastname" class="text-danger small">
@@ -45,7 +45,7 @@
 
         </div>
 
-        <div class="row g-3 mb-5">
+        <div class="row g-3 mb-4">
             <div class="col-md-2">
                 <label asp-for="Gender" class="form-label">Sex<span class="text-danger">*</span></label>
                 <select class="form-select" asp-for="Gender">
@@ -77,6 +77,18 @@
                 <span asp-validation-for="Status" class="text-danger small">
                 </span>
             </div>
+        </div>
+
+        <div class="row g-3 mb-5">     
+            <div class="col-md-2">
+                <div class="custom-file">
+                    <label asp-for="Photo" class="form-label">Photo</label>
+                    <input asp-for="Photo" class="form-control custom-file-input">
+                </div>
+                <span asp-validation-for="Photo" class="text-danger small">
+                </span>
+              </div>
+            
         </div>
 
         <hr class="mb-4">

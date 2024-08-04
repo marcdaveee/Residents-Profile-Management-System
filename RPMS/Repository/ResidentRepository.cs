@@ -17,7 +17,7 @@ namespace RPMS.Repository
             _context = context;            
         }
 
-        public async Task<IEnumerable<Resident>> GetAllResidents(string sortBy, string searchString, string streetId)
+        public async Task<PaginatedList<Resident>> GetAllResidents(string sortBy, string searchString, string streetId, int pageIndex, int pageSize)
         {
             var residents = _context.Residents.Include(r => r.Street).AsQueryable();
 
@@ -50,8 +50,11 @@ namespace RPMS.Repository
                     break;
             }
             
+            int totalPages = (int)Math.Ceiling(residents.Count() / (double)pageSize);
 
-            return await residents.AsNoTracking().ToListAsync();
+            var residentResult = await residents.Skip((pageIndex-1) * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
+
+            return new PaginatedList<Resident>(residentResult, pageIndex, totalPages);
         }
 
         public async Task<Resident>? GetResidentById(int id)

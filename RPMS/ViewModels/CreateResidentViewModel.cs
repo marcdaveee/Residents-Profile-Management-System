@@ -13,7 +13,9 @@ namespace RPMS.ViewModels
         public string Lastname { get; set; } = string.Empty;
         
         public string? Middlename { get; set; } = string.Empty;
-        
+
+        public IFormFile? Photo { get; set; }
+
         public int Age { get; set; }
 
         [Required]

@@ -1,15 +1,16 @@
-﻿@model IEnumerable<Resident>    
+﻿@using RPMS.ViewModels
+@model ResidentViewModel
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Residents";
+    ViewBag.HeadingTitle = "Residents";    
 }
 
 <div class="mx-4">
-    <h5 class="my-3"> Brgy. Niing, San Antonio, Quezon</h5>
+    <h5 class="my-3">Brgy. @Model.Address.Brgy, @Model.Address.Municipality @Model.Address.Town</h5>
 
-    <div class="row justify-content-between align-items-center my-3">
+    <div class="row justify-content-between align-items-center mt-3 mb-4">
         <div class="col-7">
             <form asp-action="index" method="get" class="row g-3 align-items-center">
                 <div class="col-5">
@@ -35,7 +36,7 @@
         
     </div>
 
-    <div>
+    <div class="d-flex justify-content-between align-items-end mb-2">
         <div class="btn-group">
             <button type="button" class="btn btn-secondary">Filter by Street:</button>
             <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,12 +44,14 @@
             </button>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" asp-route-streetId="" asp-route-sortBy="@ViewData["SortByValue"]" asp-route-searchString="@ViewData["CurrentFilter"]">All</a></li>
-                @foreach (var item in ViewBag.StreetList)
+                @foreach (var street in Model.Streets)
                 {
-                    <li><a class="dropdown-item" asp-route-streetId="@item.StreetId" asp-route-sortBy="@ViewData["SortByValue"]" asp-route-searchString="@ViewData["CurrentFilter"]">@item.StreetName</a></li>
+                    <li><a class="dropdown-item" asp-route-streetId="@street.Id" asp-route-sortBy="@ViewData["SortByValue"]" asp-route-searchString="@ViewData["CurrentFilter"]">@street.StreetName</a></li>
                 }
             </ul>
         </div>
+
+        <div class="mx-3">@Model.PaginatedResidents.PageIndex / @Model.PaginatedResidents.TotalPages</div>
     </div>
     
    @*  <div class="col-auto">
@@ -83,33 +86,48 @@
                     <th>Actions</th>
                 </tr>
             </thead>
+
             <tbody>
-                @foreach (var item in Model.Select((value, i) => new { i, value }))
+                @foreach (var resident in Model.PaginatedResidents.Items)
                 {
+                    var photoPath = "~/images/" + (resident.PhotoPath ?? "");
+
                     <tr>
                         <td>
                             <div class="d-flex align-items-center">
-                                <img src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                                <!-- Profile picture image-->
+                                @if (resident.PhotoPath != null)
+                                {
+                                    <img src="@photoPath" style="height: 45px; width:45px" class="rounded-circle" asp-append-version="true"/>
+                                }
+                                else
+                                {
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="45px" height="45px" fill="currentColor" class="bi bi-person-circle rounded-circle" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                                    </svg>
+                                }
+                              @*   <img src="https://mdbootstrap.com/img/new/avatars/8.jpg"
                                      alt=""
                                      style="width: 45px; height: 45px"
-                                     class="rounded-circle" />
+                                     class="rounded-circle" /> *@
                                 <div class="ms-3">
-                                    <p class="fw-bold mb-1">@item.value.Lastname, @item.value.Firstname</p>
-                                    <p class="text-muted mb-0">@item.value.Age</p>
+                                    <p class="fw-bold mb-1">@resident.Lastname, @resident.Firstname</p>
+                                    <p class="text-muted mb-0">@resident.Age</p>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <p class="fw-normal mb-1">@item.value.Street.StreetName</p>
+                            <p class="fw-normal mb-1">@resident.Street.StreetName</p>
                         </td>
                         <td>
-                            <p class="fw-normal mb-1">@item.value.Gender</p>
+                            <p class="fw-normal mb-1">@resident.Gender</p>
                         </td>
                         <td>
-                            <p class="fw-normal mb-1">@item.value.Status</p>
+                            <p class="fw-normal mb-1">@resident.Status</p>
                         </td>
                         <td>
-                            <a asp-controller="resident" asp-action="details" asp-route-id="@item.value.Id" class="btn btn-link btn-sm btn-rounded">
+                            <a asp-controller="resident" asp-action="details" asp-route-id="@resident.Id" class="btn btn-link btn-sm btn-rounded">
                                 View
                             </a>
                         </td>
@@ -122,16 +140,16 @@
     
 
     @{
-        var isPrevDisabled = !(bool)@ViewData["HasPrevPage"] ? "disabled" : "";
-        var isNextDisabled = !(bool)@ViewData["HasNextPage"] ? "disabled" : "";
-        var currentPage = (int)ViewData["CurrentPage"];
+        var isPrevDisabled = !Model.PaginatedResidents.HasPrevPage ? "disabled" : "";
+        var isNextDisabled = !Model.PaginatedResidents.HasNextPage ? "disabled" : "";
+        
     }
  
     <nav aria-label="Page navigation example" class="mt-3 d-flex justify-content-end">
-        <ul class="pagination">            
-            <li class="page-item"><a class="btn  page-link @isPrevDisabled" asp-action="index" asp-route-currentPage="@(currentPage - 1)" asp-route-sortBy="@ViewData["SortByValue"]" asp-route-searchString="@ViewData["CurrentFilter"]" asp-route-streetId="@ViewData["StreetIdValue"]">Previous</a></li>
+        <ul class="pagination gap-2">            
+            <li class="page-item"><a class="btn  page-link @isPrevDisabled" asp-action="index" asp-route-currentPage="@(Model.PaginatedResidents.PageIndex - 1)" asp-route-sortBy="@ViewData["SortByValue"]" asp-route-searchString="@ViewData["CurrentFilter"]" asp-route-streetId="@ViewData["StreetIdValue"]">Previous</a></li>
             
-            <li class="page-item"><a class="btn  page-link @isNextDisabled" asp-action="index" asp-route-currentPage="@(currentPage+ 1)" asp-route-sortBy="@ViewData["SortByValue"]" asp-route-searchString="@ViewData["CurrentFilter"]" asp-route-streetId="@ViewData["StreetIdValue"]">Next</a></li>
+            <li class="page-item"><a class="btn  page-link @isNextDisabled" asp-action="index" asp-route-currentPage="@(Model.PaginatedResidents.PageIndex + 1)" asp-route-sortBy="@ViewData["SortByValue"]" asp-route-searchString="@ViewData["CurrentFilter"]" asp-route-streetId="@ViewData["StreetIdValue"]">Next</a></li>
         </ul>
     </nav>
 </div>

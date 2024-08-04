@@ -16,10 +16,16 @@ namespace RPMS.Controllers
 
         private readonly IAddressRepository _addressRepository;
 
-        public ResidentController(IResidentRepository residentRepository, IAddressRepository addressRepository)
+        private readonly IStreetRepository _streetRepository;
+
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public ResidentController(IResidentRepository residentRepository, IAddressRepository addressRepository, IStreetRepository streetRepository, IWebHostEnvironment hostingEnvironment)
         {            
             _residentRepository = residentRepository;
             _addressRepository = addressRepository;
+            _streetRepository = streetRepository;
+            _webHostEnvironment = hostingEnvironment;
         }
         public async Task<IActionResult> Index(string sortBy, string searchString, string streetId, int currentPage = 1)
         {
@@ -62,27 +68,29 @@ namespace RPMS.Controllers
 
             //Handles pagination
             int pageSize = 8;            
-            var residents = await _residentRepository.GetAllResidents(sortBy, searchString, streetId);
-
-            int totalRecords = residents.Count();
-            int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);    
-            residents = residents.Skip((currentPage - 1) * pageSize).Take(pageSize);
-
-            foreach(Resident resident in residents)
+            var paginatedResidents = await _residentRepository.GetAllResidents(sortBy, searchString, streetId, currentPage, pageSize);
+                        
+            //calculate age
+            foreach(Resident resident in paginatedResidents.Items)
             {
                 resident.Age = resident.Birthday.HasValue ? (DateTime.Today.Year - resident.Birthday.Value.Year) : 0;
             }           
 
-            ViewData["CurrentPage"] = currentPage;
-            ViewData["HasPrevPage"] = currentPage > 1 ? true : false;
-            ViewData["HasNextPage"] = currentPage < totalPages ? true : false;
-
             //Get All Streets   
-            var streetList = await _addressRepository.GetAddress();
-            ViewBag.StreetList = streetList.Streets.Select(s => new { StreetId = s.Id.ToString(), StreetName = s.StreetName }).ToList();
+            var streetList = await _streetRepository.GetAll();
+
+            //Get Address
+            var address = await _addressRepository.GetAddress();
+
+            var residentViewModel = new ResidentViewModel
+            {
+                PaginatedResidents = paginatedResidents,
+                Address = address,
+                Streets = streetList.ToList(),
+            };
 
 
-            return View(residents);
+            return View(residentViewModel);
         }
 
         public async Task <IActionResult> Details(int Id)
@@ -142,13 +150,27 @@ namespace RPMS.Controllers
                 return View(newResident);
             }
 
-            
+            string uniqueFileName = null;
+
+            if(newResident.Photo != null)
+            {
+                string imageUploadFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + '_' + newResident.Photo.FileName;
+                string filePath = Path.Combine(imageUploadFolder, uniqueFileName);
+                
+                using(var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    newResident.Photo.CopyTo(fileStream);
+                }
+                
+            }
 
             var residentModel = new Resident
             {
                 Firstname = newResident.Firstname,
                 Lastname = newResident.Lastname,
                 Middlename = newResident.Middlename,
+                PhotoPath = uniqueFileName,
                 Age = newResident.Age,
                 Gender = newResident.Gender,
                 Status = newResident.Status,
