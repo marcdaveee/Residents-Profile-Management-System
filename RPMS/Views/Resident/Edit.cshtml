@@ -1,11 +1,13 @@
 ﻿@using RPMS.ViewModels
+@model EditResidentViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var existingPhotoPath = "~/images/" + (Model.ExistingPhotoPath ?? "");
 }
 
-@model EditResidentViewModel
+
 
 
 <div class="mx-3 mt-3">
@@ -18,7 +20,9 @@
     </a>
 </div>
 
+<form enctype="multipart/form-data" method="post" asp-action="edit" asp-controller="resident" asp-route-id="@Model.Id">
 <div class="row mx-3 mt-3">
+   
     <div class="col-xl-4">
         <!-- Profile picture card-->
         <div class="card mb-4 mb-xl-0">
@@ -26,14 +30,38 @@
             <div class="card-body text-center">
                 <!-- Profile picture image-->
                 @* <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt=""> *@
-                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                </svg>
-                <!-- Profile picture help block-->
-                <div class="fs-5 font-italic text-muted mt-3">@Model.Firstname @Model.Lastname</div>
-                <!-- Profile picture upload button-->
-                <div class="fs-5 font-italic text-muted">@Model.Age</div>
+                @if (Model.ExistingPhotoPath != null)
+                {
+                        <img src="@existingPhotoPath" style="height: 100px; width:auto" asp-append-version="true" />
+                }
+                else
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                    </svg>
+                }
+
+              <div class="d-flex justify-content-between align-items-center">
+                  <div class="">
+                        <div class="fs-5 font-italic text-muted mt-3">@Model.Firstname @Model.Lastname</div>
+                        <!-- Profile picture upload button-->
+                        <div class="fs-5 font-italic text-muted">@Model.Age</div>
+                  </div>
+
+                  <div>
+                        <!-- For editing or uploading a photo -->
+                        @* <label asp-for="Photo"> Photo</label> *@
+                        <input asp-for="Photo" label="@Model.ExistingPhotoPath" class="form-control"/>
+                            <span asp-validation-for="Photo" class="text-danger small">
+                            </span>
+
+                        <input hidden asp-for="ExistingPhotoPath" label="@Model.ExistingPhotoPath" />
+                  </div>
+                        
+              </div>      
+
+                
             </div>
         </div>
     </div>
@@ -42,7 +70,7 @@
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">Edit Resident Details</div>
             <div class="card-body">
-                <form method="post" asp-action="edit" asp-controller="resident">
+                
                     <!-- Form Group (username)-->                    
                     <!-- Form Row-->
                     <div class="row gx-3 mb-3">
@@ -153,9 +181,11 @@
                         <button class="btn btn-primary" type="submit">Save Changes</button>
                     </div>
                     <!-- Save changes button-->
-                </form>
+                
             </div>
         </div>
     </div>
+
 </div>
+</form>
 

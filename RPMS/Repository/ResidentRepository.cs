@@ -89,12 +89,14 @@ namespace RPMS.Repository
             residentModel.Email = updatedResident.Email;            
             residentModel.StreetId  = Convert.ToInt32(updatedResident.StreetId);
             
+            
 
             return await Save();
         }
 
         public async Task<bool> Delete(Resident residentModel)
         {
+         
             _context.Residents.Remove(residentModel);
 
             return await Save();

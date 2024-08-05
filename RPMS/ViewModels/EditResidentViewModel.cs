@@ -16,6 +16,10 @@ namespace RPMS.ViewModels
 
         public string? Middlename { get; set; } = string.Empty;
 
+        public string? ExistingPhotoPath { get; set; } = string.Empty;
+        
+        public IFormFile? Photo { get; set; }
+
         public int Age { get; set; }
 
         [Required]
