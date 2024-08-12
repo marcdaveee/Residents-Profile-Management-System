@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RPMS.Data;
+using RPMS.Extensions;
 using RPMS.Interfaces;
 using RPMS.Models;
 using RPMS.ViewModels;
@@ -110,42 +111,76 @@ namespace RPMS.Controllers
 
         public async Task<IActionResult> Add()
         {
+            //Get Main Address
             var mainAddress = await _addressRepository.GetAddress();
 
-            ViewBag.MainAddress = mainAddress;
+            var createResidentVM = new CreateResidentViewModel
+            {
+                Address = mainAddress                
+            };
 
-            var streetList = mainAddress.Streets.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.StreetName }).ToList();
+            //Get All Streets
+            var streetList = await _streetRepository.GetAll();
+
             if (streetList == null)
             {
-                ViewBag.Streets = new SelectListItem { Value = null, Text = "No Streets Available" };
+                var selectListItems = new List<SelectListItem>();
+
+                var selectListItem = new SelectListItem
+                {
+                    Text = "No Sreets Available",
+                    Value = ""
+                };
+
+                selectListItems.Add(selectListItem);
+
+                createResidentVM.Streets = selectListItems;
             }
             else
             {
-                ViewBag.Streets = streetList;
+                createResidentVM.Streets = streetList.ToSelectListItem("StreetName", "Id");
+               
             }
 
 
-            return View();
+            //ViewBag.MainAddress = mainAddress;
+
+            //var streetList = mainAddress.Streets.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.StreetName }).ToList();
+            //if (streetList == null)
+            //{
+            //    ViewBag.Streets = new SelectListItem { Value = null, Text = "No Streets Available" };
+            //}
+            //else
+            //{
+            //    ViewBag.Streets = streetList;
+            //}
+
+
+            return View(createResidentVM);
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(CreateResidentViewModel newResident)
         {
             if (!ModelState.IsValid)
-            {
-                var mainAddress = await _addressRepository.GetAddress();
-
-                var streetList = mainAddress.Streets.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.StreetName }).ToList();
-                ViewBag.Streets = streetList;
-
-                ViewBag.MainAddress = mainAddress;
-
+            {                
+              
                 //Ensure that DoB is not more than the current year
                 if (newResident.Birthday > DateTime.Now)
                 {
                     ModelState.AddModelError(nameof(newResident.Birthday), "Birthday is invalid.");
 
                 }
+
+                //Get Main Address
+                var mainAddress = await _addressRepository.GetAddress();
+
+                //Get All Streets
+                var streetList = await _streetRepository.GetAll();
+
+                newResident.Streets = streetList.ToSelectListItem("StreetName", "Id");
+                newResident.Address = mainAddress;
+                
 
                 return View(newResident);
             }

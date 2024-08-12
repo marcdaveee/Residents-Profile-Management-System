@@ -10,19 +10,29 @@ namespace RPMS.Controllers
     public class StreetController : Controller
     {
         private IStreetRepository _streetRepo;
+        private readonly IAddressRepository _addressRepo;
 
-        public StreetController(IStreetRepository streetRepo)
+        public StreetController(IStreetRepository streetRepo, IAddressRepository addressRepo)
         {
             _streetRepo = streetRepo;
+            _addressRepo = addressRepo;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Add()
+        public async Task <IActionResult> Add()
         {
-            return View();
+            var addressModel = await _addressRepo.GetAddress();
+
+
+            var createStreetViewModel = new CreateStreetViewModel
+            {
+                StreetName = "",
+                AddressId = addressModel.Id,
+            };
+            return View(createStreetViewModel);
         }
 
         [HttpPost]
@@ -34,7 +44,7 @@ namespace RPMS.Controllers
                 var streetModel = new Street
                 {
                     StreetName = newStreet.StreetName,
-                    AddressId = 1   
+                    AddressId = newStreet.AddressId   
                 };
 
                 await _streetRepo.AddStreet(streetModel);

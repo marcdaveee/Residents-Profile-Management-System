@@ -98,7 +98,7 @@
                                 <!-- Profile picture image-->
                                 @if (resident.PhotoPath != null)
                                 {
-                                    <img src="@photoPath" style="height: 45px; width:45px" class="rounded-circle" asp-append-version="true"/>
+                                    <img src="@photoPath" style="height: 45px; width:45px; object-fit:cover" class="rounded-circle" asp-append-version="true"/>
                                 }
                                 else
                                 {

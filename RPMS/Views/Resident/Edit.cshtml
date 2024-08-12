@@ -5,6 +5,9 @@
 *@
 @{
     var existingPhotoPath = "~/images/" + (Model.ExistingPhotoPath ?? "");
+
+    ViewBag.Title = "Residents";
+    ViewBag.HeadingTitle = "Edit Resident";
 }
 
 
@@ -32,7 +35,7 @@
                 @* <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt=""> *@
                 @if (Model.ExistingPhotoPath != null)
                 {
-                        <img src="@existingPhotoPath" style="height: 100px; width:auto" asp-append-version="true" />
+                        <img src="@existingPhotoPath" style="height: 250px; width:auto; object-fit:cover" asp-append-version="true" />
                 }
                 else
                 {
@@ -42,7 +45,7 @@
                     </svg>
                 }
 
-              <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center mt-4">
                   <div class="">
                         <div class="fs-5 font-italic text-muted mt-3">@Model.Firstname @Model.Lastname</div>
                         <!-- Profile picture upload button-->

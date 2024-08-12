@@ -6,6 +6,9 @@
 *@
 @{
     var photoPath = "~/images/" + (Model.PhotoPath ?? "");
+
+    ViewBag.Title = "Residents";
+    ViewBag.HeadingTitle = "Residents Detail";
 }
 
 <div class="mx-3 mt-3">
@@ -27,7 +30,7 @@
                 <!-- Profile picture image-->
                 @if (Model.PhotoPath != null)
                 {
-                    <img src="@photoPath" style="height: 100px; width:auto" asp-append-version="true"/>
+                    <img src="@photoPath" style="height: 250px; width:auto; object-fit:cover" asp-append-version="true"/>
                 }
                 else
                 {
