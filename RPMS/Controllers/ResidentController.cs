@@ -200,6 +200,8 @@ namespace RPMS.Controllers
 
             }
 
+            //Create the new Resident model
+
             var residentModel = new Resident
             {
                 Firstname = newResident.Firstname,
@@ -248,19 +250,26 @@ namespace RPMS.Controllers
             };
 
             var mainAddress = await _addressRepository.GetAddress();
-            ViewBag.MainAddress = mainAddress;
 
-            var streetList = mainAddress.Streets.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.StreetName, Selected = false }).ToList();
+            residentToEdit.Address = mainAddress;
 
-            foreach (var street in streetList)
-            {
-                if (street.Value == id.ToString())
-                {
-                    street.Selected = true;
-                }
-            }
+            var streets = await _streetRepository.GetAll();
 
-            ViewBag.StreetList = streetList;
+            residentToEdit.Streets = streets.ToSelectListItem("StreetName", "Id");
+
+            //ViewBag.MainAddress = mainAddress;
+
+            //var streetList = mainAddress.Streets.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.StreetName, Selected = false }).ToList();
+
+            //foreach (var street in streetList)
+            //{
+            //    if (street.Value == id.ToString())
+            //    {
+            //        street.Selected = true;
+            //    }
+            //}
+
+            //ViewBag.StreetList = streetList;
 
             return View("Edit", residentToEdit);
         }
@@ -280,19 +289,13 @@ namespace RPMS.Controllers
             if (!ModelState.IsValid)
             {
                 var mainAddress = await _addressRepository.GetAddress();
-                ViewBag.MainAddress = mainAddress;
 
-                var streetList = mainAddress.Streets.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.StreetName, Selected = false }).ToList();
+                updatedResident.Address = mainAddress;
 
-                foreach (var street in streetList)
-                {
-                    if (street.Value == id.ToString())
-                    {
-                        street.Selected = true;
-                    }
-                }
+                var streets = await _streetRepository.GetAll();
 
-                ViewBag.StreetList = streetList;
+                updatedResident.Streets = streets.ToSelectListItem("StreetName", "Id");
+              
 
                 //Ensure that DoB is not more than the current year
                 if (updatedResident.Birthday > DateTime.Now)
@@ -318,18 +321,13 @@ namespace RPMS.Controllers
                 {
                     
 
-                    var mainAddress = await _addressRepository.GetAddress();
-                    ViewBag.MainAddress = mainAddress;
+                    var mainAddress = await _addressRepository.GetAddress();                    
 
-                    var streetList = mainAddress.Streets.Select(s => new SelectListItem { Value = s.Id.ToString(), Text = s.StreetName, Selected = false }).ToList();
+                    updatedResident.Address = mainAddress;
 
-                    foreach (var street in streetList)
-                    {
-                        if (street.Value == id.ToString())
-                        {
-                            street.Selected = true;
-                        }
-                    }
+                    var streets = await _streetRepository.GetAll();
+
+                    updatedResident.Streets = streets.ToSelectListItem("StreetName", "Id");
 
                     ModelState.AddModelError(nameof(updatedResident.Photo), "Must be an image.");
 
@@ -358,7 +356,6 @@ namespace RPMS.Controllers
                 }
 
             }          
-
        
            
             var updateResult = await _residentRepository.Update(residentModel, updatedResident);

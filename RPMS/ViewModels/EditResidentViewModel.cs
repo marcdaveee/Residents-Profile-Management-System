@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using RPMS.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RPMS.ViewModels
 {
@@ -44,9 +46,14 @@ namespace RPMS.ViewModels
 
         //public Street? Street { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Street is required")]
         [ForeignKey("Street")]
-        public int StreetId { get; set; }
+        public int? StreetId { get; set; }
+
+        public Address? Address{ get; set; }
+
+        //list of streets as a Select List Item
+        public  IEnumerable<SelectListItem>? Streets{ get; set; }
 
     }
 }

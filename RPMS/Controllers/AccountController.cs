@@ -95,8 +95,7 @@ namespace RPMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel, string? returnUrl = null)
         {
-
-            returnUrl = returnUrl ?? Url.Content("~/");
+            
 
             if (ModelState.IsValid)
             {

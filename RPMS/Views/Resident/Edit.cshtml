@@ -139,8 +139,9 @@
                     <div class="row mb-2">
                         <div class="col-md-auto">
                             <label class="small mb-1" asp-for="StreetId">Street<span class="text-danger">*</span></label>
-                            <select class="form-select" asp-for="StreetId" asp-items="@(new SelectList(ViewBag.StreetList, "Value", "Text", "Selected"))">
+                            <select class="form-select" asp-for="StreetId" asp-items="@Model.Streets">
                             </select>
+                            <span asp-validation-for="StreetId" class="text-danger small"></span>
                         </div>
                     </div>
 
@@ -149,17 +150,17 @@
 
                         <div class="col-md-4">
                             <label class="small mb-1" for="inputBrgy">Brgy.</label>
-                            <input readonly class="form-control" id="inputBrgy" type="text" placeholder="Enter your location" value="@ViewBag.MainAddress.Brgy">
+                            <input readonly class="form-control" id="inputBrgy" type="text" placeholder="Enter your location" value="@Model.Address.Brgy">
                         </div>
 
                         <div class="col-md-4">
                             <label class="small mb-1" for="inputMunicipality">Municipality</label>
-                            <input readonly class="form-control" id="inputMunicipality" type="text" placeholder="Enter your location" value="@ViewBag.MainAddress.Municipality">
+                            <input readonly class="form-control" id="inputMunicipality" type="text" placeholder="Enter your location" value="@Model.Address.Municipality">
                         </div>
 
                         <div class="col-md-4">
                             <label class="small mb-1" for="inputProvince">Province</label>
-                            <input readonly class="form-control" id="inputProvince" type="text" placeholder="Enter your location" value="@ViewBag.MainAddress.Town">
+                            <input readonly class="form-control" id="inputProvince" type="text" placeholder="Enter your location" value="@Model.Address.Town">
                         </div>
                     </div>
                     <!-- Form Group (email address, phone number)-->
