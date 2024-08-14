@@ -16,6 +16,8 @@ namespace RPMS.Interfaces
 
         Task<bool> Delete(Resident residentModel);
 
+        Task<bool> Exists(string lastname, string firstname, int? streetId);
+
         Task<bool> Save();
     }
 }

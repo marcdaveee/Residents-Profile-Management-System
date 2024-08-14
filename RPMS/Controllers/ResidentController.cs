@@ -28,6 +28,7 @@ namespace RPMS.Controllers
             _streetRepository = streetRepository;
             _webHostEnvironment = hostingEnvironment;
         }
+        
         public async Task<IActionResult> Index(string sortBy, string searchString, string streetId, int currentPage = 1)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortBy) ? "name_desc" : "";
@@ -138,7 +139,7 @@ namespace RPMS.Controllers
             }
             else
             {
-                createResidentVM.Streets = streetList.ToSelectListItem("StreetName", "Id");
+                createResidentVM.Streets = streetList.ToSelectListItem("StreetName", "Id");                
                
             }
 
@@ -185,6 +186,24 @@ namespace RPMS.Controllers
                 return View(newResident);
             }
 
+            //Check for duplication
+            if(await _residentRepository.Exists(newResident.Lastname, newResident.Firstname, newResident.StreetId)){
+                ModelState.AddModelError(nameof(newResident.Lastname), "Resident already exists");
+                ModelState.AddModelError(nameof(newResident.Firstname), "Resident already exists");
+                ModelState.AddModelError(nameof(newResident.StreetId), "Resident already exists");
+
+                //Get Main Address
+                var mainAddress = await _addressRepository.GetAddress();
+
+                //Get All Streets
+                var streetList = await _streetRepository.GetAll();
+
+                newResident.Streets = streetList.ToSelectListItem("StreetName", "Id");
+                newResident.Address = mainAddress;
+
+                return View(newResident);
+            }
+
             string uniqueFileName = null;
 
             if (newResident.Photo != null)
@@ -220,7 +239,9 @@ namespace RPMS.Controllers
 
             await _residentRepository.Add(residentModel);
 
-            return RedirectToAction("Index");
+            TempData["AlertSuccess"] = "New Resident was added successfully.";
+
+            return RedirectToAction("Add", "Resident");
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -307,6 +328,25 @@ namespace RPMS.Controllers
                 return View(updatedResident);
             }
 
+            //Check for duplication
+            if (await _residentRepository.Exists(updatedResident.Lastname, updatedResident.Firstname, updatedResident.StreetId))
+            {
+                ModelState.AddModelError(nameof(updatedResident.Lastname), "Resident already exists");
+                ModelState.AddModelError(nameof(updatedResident.Firstname), "Resident already exists");
+                ModelState.AddModelError(nameof(updatedResident.StreetId), "Resident already exists");
+
+                //Get Main Address
+                var mainAddress = await _addressRepository.GetAddress();
+
+                //Get All Streets
+                var streetList = await _streetRepository.GetAll();
+
+                updatedResident.Streets = streetList.ToSelectListItem("StreetName", "Id");
+                updatedResident.Address = mainAddress;
+
+                return View(updatedResident);
+            }
+
             string uniqueFileName = null;
 
             //Process update of image
@@ -366,7 +406,7 @@ namespace RPMS.Controllers
                 return RedirectToAction("Details", new { Id = id });
             }
 
-
+            TempData["AlertSuccess"] = "Updated successfully.";
             return RedirectToAction("Details", new { Id = id });
         }
 

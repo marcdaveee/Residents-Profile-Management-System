@@ -18,6 +18,7 @@ namespace RPMS.Repository
 
         public async Task<IEnumerable<Street>> GetAll()
         {
+
             var streets = await _context.Streets.ToListAsync();
 
             return streets;

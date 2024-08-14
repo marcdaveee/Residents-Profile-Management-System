@@ -11,10 +11,12 @@ namespace RPMS.Controllers
     public class AddressController : Controller
     {
         private readonly IAddressRepository _addressRepo;
+        private readonly IStreetRepository _streetRepo;
 
-        public AddressController(IAddressRepository addressRepo)
+        public AddressController(IAddressRepository addressRepo, IStreetRepository streetRepo)
         {
             _addressRepo = addressRepo;
+            _streetRepo = streetRepo;
         }
         public async Task<IActionResult> Index()
         {

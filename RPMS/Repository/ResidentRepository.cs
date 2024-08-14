@@ -102,6 +102,11 @@ namespace RPMS.Repository
             return await Save();
         }
 
+        public async Task<bool> Exists(string lastname, string firstname, int? streetId)
+        {
+            return _context.Residents.Any(r => r.Firstname.ToLower() == firstname.ToLower() && r.Lastname.ToLower() == lastname.ToLower() && r.StreetId == streetId);
+        }
+
         public async Task<bool> Save()
         {
             var result = await _context.SaveChangesAsync();

@@ -8,10 +8,10 @@
     var photoPath = "~/images/" + (Model.PhotoPath ?? "");
 
     ViewBag.Title = "Residents";
-    ViewBag.HeadingTitle = "Residents Detail";
+    ViewBag.HeadingTitle = "Resident Detail";
 }
 
-<div class="mx-3 mt-3">
+<div class="d-flex justify-content-between align-items-center mx-3 mt-3">
     <a asp-controller="resident" asp-action="Index" class="btn btn-outline-dark">
         <span>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -19,6 +19,11 @@
             </svg>
         </span> Back
     </a>
+
+    @if (TempData["AlertSuccess"] != null)
+    {
+        <div class="alert alert-success"> @TempData["AlertSuccess"] </div>
+    }
 </div>
 
 <div class="row mx-3 mt-3">
@@ -30,7 +35,7 @@
                 <!-- Profile picture image-->
                 @if (Model.PhotoPath != null)
                 {
-                    <img src="@photoPath" style="height: 250px; width:auto; object-fit:cover" asp-append-version="true"/>
+                    <img src="@photoPath" style="height:150px; width:150px; margin:0 auto; object-fit:cover" class="rounded-circle" asp-append-version="true"/>
                 }
                 else
                 {
