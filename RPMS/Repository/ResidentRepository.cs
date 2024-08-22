@@ -57,7 +57,7 @@ namespace RPMS.Repository
             return new PaginatedList<Resident>(residentResult, pageIndex, totalPages);
         }
 
-        public async Task<Resident>? GetResidentById(int id)
+        public async Task<Resident?> GetResidentById(int id)
         {
             var resident = await _context.Residents.Include(r => r.Address).Include(r => r.Street).FirstOrDefaultAsync(r => r.Id == id);
 

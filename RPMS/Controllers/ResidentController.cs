@@ -328,24 +328,6 @@ namespace RPMS.Controllers
                 return View(updatedResident);
             }
 
-            //Check for duplication
-            if (await _residentRepository.Exists(updatedResident.Lastname, updatedResident.Firstname, updatedResident.StreetId))
-            {
-                ModelState.AddModelError(nameof(updatedResident.Lastname), "Resident already exists");
-                ModelState.AddModelError(nameof(updatedResident.Firstname), "Resident already exists");
-                ModelState.AddModelError(nameof(updatedResident.StreetId), "Resident already exists");
-
-                //Get Main Address
-                var mainAddress = await _addressRepository.GetAddress();
-
-                //Get All Streets
-                var streetList = await _streetRepository.GetAll();
-
-                updatedResident.Streets = streetList.ToSelectListItem("StreetName", "Id");
-                updatedResident.Address = mainAddress;
-
-                return View(updatedResident);
-            }
 
             string uniqueFileName = null;
 
@@ -402,6 +384,7 @@ namespace RPMS.Controllers
 
             if (updateResult == false)
             {
+                TempData["AlertSuccess"] = "Nothing was updated.";
                 // Handle failed updates
                 return RedirectToAction("Details", new { Id = id });
             }
@@ -426,8 +409,20 @@ namespace RPMS.Controllers
             }
 
 
-            await _residentRepository.Delete(residentModel);
-            return RedirectToAction("Index");
+            var result = await _residentRepository.Delete(residentModel);
+
+            if (result)
+            {
+                TempData["AlertSuccess"] = "Deleted successfully.";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["AlertSuccess"] = "Error occured.";
+                return RedirectToAction("Index");
+            }
+
+            
         }
 
 

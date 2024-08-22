@@ -22,12 +22,12 @@ body {
 }
 
 
-#main-content-body{
+#main-content-body {
     height: calc(100vh - 120px);
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 #resident-table {
-    height: 650px;
-    
+    max-height: calc(100vh - 380px);
+    overflow-y: scroll;
 }
