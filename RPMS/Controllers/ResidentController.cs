@@ -101,10 +101,9 @@ namespace RPMS.Controllers
 
             
             if (resident == null)
-            {
-                                
-                Response.StatusCode = 404;
-                return StatusCode(404);
+            {                                               
+                
+                return NotFound();
             }
 
             resident.Age = resident.Birthday.HasValue ? (DateTime.Today.Year - resident.Birthday.Value.Year) : 0;
@@ -254,7 +253,7 @@ namespace RPMS.Controllers
 
             if (resident == null)
             {
-                return View("Error");
+                return NotFound();
             }
 
             var residentToEdit = new EditResidentViewModel
@@ -310,7 +309,7 @@ namespace RPMS.Controllers
 
             if (residentModel == null)
             {
-                return View("Error");
+                return NotFound();
             }
 
             if (!ModelState.IsValid)
@@ -405,7 +404,7 @@ namespace RPMS.Controllers
 
             if (residentModel == null)
             {
-                return View("Error");
+                return NotFound();
             }
 
             if (residentModel.PhotoPath != null)

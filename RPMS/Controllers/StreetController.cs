@@ -61,7 +61,7 @@ namespace RPMS.Controllers
 
             if (streetModel == null)
             {
-                return View("Error");
+                return NotFound();
             }            
 
             var modelToEdit = new EditStreetViewModel
@@ -81,7 +81,7 @@ namespace RPMS.Controllers
 
             if(streetModel == null)
             {
-                return View("Error");
+                return NotFound();
             }
 
             if (!ModelState.IsValid)
@@ -102,7 +102,7 @@ namespace RPMS.Controllers
 
             if (streetModel == null)
             {
-                return View("Error");
+                return NotFound();
             }            
 
             await _streetRepo.Delete(streetModel);

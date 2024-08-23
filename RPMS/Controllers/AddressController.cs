@@ -59,7 +59,7 @@ namespace RPMS.Controllers
             var address = await _addressRepo.GetAddress();
 
             if(address == null) {
-                return View("Index");
+                return NotFound();
             }
 
             var addressToEdit = new EditAddressViewModel
