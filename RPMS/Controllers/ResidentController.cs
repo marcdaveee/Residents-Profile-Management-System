@@ -99,12 +99,15 @@ namespace RPMS.Controllers
         {
             var resident = await _residentRepository.GetResidentById(Id);
 
-            resident.Age = resident.Birthday.HasValue ? (DateTime.Today.Year - resident.Birthday.Value.Year) : 0;
-
+            
             if (resident == null)
             {
-                return View("Error");
+                                
+                Response.StatusCode = 404;
+                return StatusCode(404);
             }
+
+            resident.Age = resident.Birthday.HasValue ? (DateTime.Today.Year - resident.Birthday.Value.Year) : 0;
 
 
             return View(resident);
@@ -226,6 +229,7 @@ namespace RPMS.Controllers
                 Firstname = newResident.Firstname,
                 Lastname = newResident.Lastname,
                 Middlename = newResident.Middlename,
+                Suffix = newResident.Suffix,
                 PhotoPath = uniqueFileName,
                 Age = newResident.Age,
                 Gender = newResident.Gender,
@@ -258,6 +262,7 @@ namespace RPMS.Controllers
                 Id = resident.Id,
                 Firstname = resident.Firstname,
                 Lastname = resident.Lastname,
+                Suffix = resident.Suffix,
                 Middlename = resident.Middlename,
                 ExistingPhotoPath = resident.PhotoPath,
                 Age = resident.Birthday.HasValue ? (DateTime.Today.Year - resident.Birthday.Value.Year) : 0,
@@ -268,6 +273,7 @@ namespace RPMS.Controllers
                 Email = resident.Email,
                 AddressId = resident.AddressId,
                 StreetId = Convert.ToInt32(resident.StreetId),
+                Remarks = resident.Remarks
             };
 
             var mainAddress = await _addressRepository.GetAddress();

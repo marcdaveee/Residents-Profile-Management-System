@@ -1,6 +1,6 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = ViewData["Title"];
     Layout = "~/Views/Shared/non-dashboard-layout.cshtml";
 }
 
@@ -16,7 +16,7 @@
 
 <div class="d-flex flex-column align-items-center justify-content-center align-content-lg-center mt-5">
     <h1 class="text-danger">Error.</h1>
-    <h2 class="text-danger">Requested data doesn't exist.</h2>
+    <h2 class="text-danger">@ViewData["ErrorMessage"]</h2>
 </div>
 
 

@@ -81,6 +81,7 @@ namespace RPMS.Repository
             residentModel.Firstname = updatedResident.Firstname;
             residentModel.Lastname = updatedResident.Lastname;
             residentModel.Middlename = updatedResident.Middlename;
+            residentModel.Suffix = updatedResident.Suffix;
             residentModel.Age = updatedResident.Age;
             residentModel.Gender = updatedResident.Gender;
             residentModel.Status = updatedResident.Status;
@@ -88,6 +89,7 @@ namespace RPMS.Repository
             residentModel.ContactNo = updatedResident.ContactNo;
             residentModel.Email = updatedResident.Email;            
             residentModel.StreetId  = Convert.ToInt32(updatedResident.StreetId);
+            residentModel.Remarks = updatedResident.Remarks;
             
             
 

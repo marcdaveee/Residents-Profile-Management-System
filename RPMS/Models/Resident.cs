@@ -13,6 +13,8 @@ namespace RPMS.Models
 
         public string? PhotoPath { get; set; } = string.Empty;
 
+        public string? Suffix { get; set; } = string.Empty;
+
         public string? Middlename { get; set; } = string.Empty;
 
         public int Age { get; set; }
@@ -39,5 +41,8 @@ namespace RPMS.Models
 
         public Street? Street { get; set; }
 
+
+        [DataType(DataType.MultilineText)]
+        public string Remarks { get; set; } = string.Empty;
     }
 }

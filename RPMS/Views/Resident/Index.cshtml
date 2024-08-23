@@ -92,6 +92,7 @@
                         <i class="@ViewData["SortedStreetIcon"]" aria-hidden="true"></i>
                         <a asp-action="Index" asp-route-sortBy="@ViewData["StreetSortParm"]" asp-route-searchString="@ViewData["CurrentFilter"]">Street</a>
                     </th>
+                    <th>Brgy.</th>
                     <th>Sex</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -104,8 +105,8 @@
                     var photoPath = "~/images/" + (resident.PhotoPath ?? "");
 
                     <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
+                        <td >
+                            <div class=" d-flex align-items-center">
                                 <!-- Profile picture image-->
                                 @if (resident.PhotoPath != null)
                                 {
@@ -123,7 +124,7 @@
                                      style="width: 45px; height: 45px"
                                      class="rounded-circle" /> *@
                                 <div class="ms-3">
-                                    <p class="fw-bold mb-1">@resident.Lastname, @resident.Firstname</p>
+                                    <p class="fw-bold mb-1">@resident.Lastname, @resident.Firstname @resident.Suffix</p>
                                     <p class="text-muted mb-0">@resident.Age</p>
                                 </div>
                             </div>
@@ -131,6 +132,10 @@
                         <td>
                             <p class="fw-normal mb-1">@resident.Street.StreetName</p>
                         </td>
+                        <td>
+                            <p class="fw-normal mb-1">@Model.Address.Brgy</p>
+                        </td>
+
                         <td>
                             <p class="fw-normal mb-1">@resident.Gender</p>
                         </td>

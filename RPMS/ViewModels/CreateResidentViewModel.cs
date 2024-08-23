@@ -15,6 +15,8 @@ namespace RPMS.ViewModels
         
         public string? Middlename { get; set; } = string.Empty;
 
+        public string? Suffix {  get; set; } = string.Empty;
+
         public IFormFile? Photo { get; set; }
 
         public int Age { get; set; }
@@ -49,7 +51,6 @@ namespace RPMS.ViewModels
 
         //List of Street Entity
         public IEnumerable<SelectListItem>? Streets{ get; set; }
-
         
     }
 }

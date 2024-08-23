@@ -50,7 +50,7 @@
 
                 
                 <!-- Profile picture help block-->
-                <div class="fs-5 font-italic text-muted mt-3">@Model.Firstname @Model.Lastname</div>
+                <div class="fs-5 font-italic text-muted mt-3">@Model.Firstname @Model.Lastname @Model.Suffix</div>
                 <!-- Profile picture upload button-->
                 <div class="fs-5 font-italic text-muted">@Model.Age</div>
             </div>
@@ -78,19 +78,24 @@
                     <!-- Form Row-->
                     <div class="row gx-3 mb-3">
                         <!-- Form Group (first name)-->
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="small mb-1" for="inputFirstName">First name</label>
                             <input readonly class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="@Model.Firstname">
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="small mb-1" for="inputMiddleName">Middle name</label>
                             <input readonly class="form-control" id="inputMiddleName" type="text" placeholder="Enter your middle name" value="@Model.Middlename">
                         </div>
                         <!-- Form Group (last name)-->
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="small mb-1" for="inputLastName">Last name</label>
                             <input readonly class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="@Model.Lastname">
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Suffix" class="form-label">Suffix</label>
+                            <input readonly class="form-control" asp-for="Suffix" placeholder="">                            
                         </div>
                     </div>
                     <!-- Form Row        -->
@@ -152,6 +157,14 @@
                         <div class="col-md-6">
                             <label class="small mb-1" for="inputPhone">Phone number</label>
                             <input readonly class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="@Model.ContactNo">
+                        </div>
+                        
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputRemarks">Remarks</label>
+                            <textarea readonly asp-for="Remarks" id="inputRemarks" class="form-control" rows="5">@Model.Remarks</textarea>
                         </div>
                         
                     </div>

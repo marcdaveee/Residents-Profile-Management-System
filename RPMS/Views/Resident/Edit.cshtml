@@ -78,24 +78,31 @@
                     <!-- Form Row-->
                     <div class="row gx-3 mb-3">
                         <!-- Form Group (first name)-->
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="small mb-1" asp-for="Firstname">First name<span class="text-danger">*</span></label>
                             <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" asp-for="Firstname">
                             <span asp-validation-for="Firstname" class="text-danger small">
                             </span>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="small mb-1" asp-for="Middlename">Middle name</label>
                             <input class="form-control" id="inputMiddleName" type="text" placeholder="Enter your middle name" asp-for="Middlename">
                             <span asp-validation-for="Middlename" class="text-danger small">
                             </span>
                         </div>
                         <!-- Form Group (last name)-->
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="small mb-1" asp-for="Lastname">Last name<span class="text-danger">*</span></label>
                             <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" asp-for="Lastname">
                             <span asp-validation-for="Lastname" class="text-danger small">
+                            </span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Suffix" class="form-label">Suffix</label>
+                            <input class="form-control" asp-for="Suffix" placeholder="">
+                            <span asp-validation-for="Suffix" class="text-danger small">
                             </span>
                         </div>
                     </div>
@@ -179,6 +186,13 @@
                             </span>
                         </div>
 
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputRemarks">Remarks</label>
+                            <textarea  asp-for="Remarks" class="form-control" rows="5">@Model.Remarks</textarea>
+                        </div>
                     </div>
 
                     <div class="d-flex justify-content-end">

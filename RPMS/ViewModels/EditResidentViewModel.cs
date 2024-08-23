@@ -18,6 +18,8 @@ namespace RPMS.ViewModels
 
         public string? Middlename { get; set; } = string.Empty;
 
+        public string? Suffix {  get; set; } = string.Empty;
+
         public string? ExistingPhotoPath { get; set; } = string.Empty;
         
         public IFormFile? Photo { get; set; }
@@ -55,5 +57,7 @@ namespace RPMS.ViewModels
         //list of streets as a Select List Item
         public  IEnumerable<SelectListItem>? Streets{ get; set; }
 
+        [DataType(DataType.MultilineText)]
+        public string Remarks { get; set; } = string.Empty;
     }
 }
