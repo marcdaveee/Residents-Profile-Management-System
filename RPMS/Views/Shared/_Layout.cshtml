@@ -19,11 +19,12 @@
     var isActiveRoute = new Func<string[]?, string, string, string>((ctrl, activeStyle, inActiveStyle) => ctrl.Contains(controller) ? activeStyle : inActiveStyle);
 }
 
-<body class="vh-100 overflow-hidden">
+<body class="vh-100 overflow-hidden position-relative">
 
     <div class="container-fluid h-100 ">
         <div class="row g-0 h-100"> 
-            <nav class="h-100 col-md-2 col-lg-2 d-flex flex-column bg-body-tertiary border border-right sidebar">
+            <nav id="side-nav" class="h-100 col-md-3 col-lg-2 d-flex flex-column bg-body-tertiary border border-right sidebar z-1">
+                <i id="close-menu" class="bi bi-arrow-left btn btn-primary d-none"></i>
                 <div class="d-flex justify-content-center  mb-3 py-3">
                     <h3 class="fw-bolder">RPMS</h3>
                     
@@ -83,24 +84,31 @@
                 
             </nav>
 
-            <main role="main" class="col-md-10 col-lg-10 h-100 p-3 overflow-y-hidden">
-                <nav class="navbar flex-md-nowrap py-3 px-3 border-bottom rounded mb-3" style="background-color: #047857">
-                    @* <h3 class="font-weight-bold text-dark">@ViewData["HeadingTitle"]</h3>                                 *@
-                    <h4 class="fs-5 font-weight-bold text-white">@ViewData["HeadingTitle"]</h4>                                
-                    <ul class="navbar-nav">
-                        <li class="nav-item text-nowrap">
-                            <form asp-action="Logout" asp-controller="account" method="post">
-                                <button type="submit" class="btn text-white border-white">
-                                    Logout
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
-                                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
-                                    </svg>
-                                </button>
-                            </form>                           
-                        </li>
-                    </ul>
-                </nav>
+            <main role="main" class="col-md-9 col-lg-10 h-100 p-3 overflow-y-hidden">
+                                   
+
+                    <nav class="flex-grow-1 navbar flex-md-nowrap py-3 px-3 border-bottom rounded mb-3" style="background-color: #047857">
+                        @* <h3 class="font-weight-bold text-dark">@ViewData["HeadingTitle"]</h3>                                 *@
+                    <i id="hamburger-menu" class="d-none bi bi-list btn btn-light">
+                    </i>
+
+                        <h4 class="fs-5 font-weight-bold text-white">@ViewData["HeadingTitle"]</h4>
+                        <ul class="navbar-nav">
+                            <li class="nav-item text-nowrap">
+                                <form asp-action="Logout" asp-controller="account" method="post">
+                                    <button type="submit" class="btn text-white border-white">
+                                        Logout
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </nav>
+          
+               
                 <div id="main-content-body" >
                     @RenderBody()
                 </div>

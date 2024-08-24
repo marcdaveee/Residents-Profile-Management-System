@@ -3,29 +3,15 @@
 
 // Write your JavaScript code.
 
-//const mainNavLinks = document.querySelectorAll("#main-nav .nav-item");
+// When Hamburger menu button is toggled
 
-//const clearActiveNavLink = () => {
-//    mainNavLinks.forEach((navLinks) => {
-//        navLinks.childNodes[1].classList.remove("active");
-//    });
-//}
 
-//clearActiveNavLink();
+$("#hamburger-menu").click(() => {
+    console.log("clicked");
+    $("#side-nav").toggleClass("show");
+    $("#close-menu").addClass("show");
+ })
 
-//if (window.location.href.toLowerCase().includes("resident")) {
-//    var link = mainNavLinks[0].childNodes[1];
-//    link.classList.add("active");
-
-//}
-
-//if (window.location.href.toLowerCase().includes("address") || window.location.href.toLowerCase().includes("street") && !window.location.href.toLowerCase().includes("?")) {
-//    var link = mainNavLinks[1].childNodes[1];
-//    link.classList.add("active");
-
-//}
-//if (window.location.href.toLowerCase().includes("settings")) {
-//    var link = mainNavLinks[2].childNodes[1];
-//    link.classList.add("active");
-
-//}
+$("#close-menu").click(() => {
+    $("#side-nav").toggleClass("show");
+})
