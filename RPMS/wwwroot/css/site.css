@@ -24,10 +24,10 @@ body {
 
 #main-content-body {
     height: calc(100vh - 120px);
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 #resident-table {
-    max-height: calc(100vh - 380px);
+    max-height: calc(100vh - 385px);
     overflow-y: scroll;
 }

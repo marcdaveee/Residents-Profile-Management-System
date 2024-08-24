@@ -58,6 +58,6 @@ namespace RPMS.ViewModels
         public  IEnumerable<SelectListItem>? Streets{ get; set; }
 
         [DataType(DataType.MultilineText)]
-        public string Remarks { get; set; } = string.Empty;
+        public string? Remarks { get; set; } = string.Empty;
     }
 }

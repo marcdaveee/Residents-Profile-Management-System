@@ -8,7 +8,7 @@
 }
 
 <div class="d-flex justify-content-between mb-4">
-    <h5 class="fs-3 ">Residents</h5>
+    <h5 class="fs-4 fw-bold ">Residents</h5>
     @if (TempData["AlertSuccess"] != null)
     {
         <div class="alert alert-dismissible alert-success">
@@ -22,7 +22,7 @@
 <div class="d-flex justify-content-between align-items-center mb-4 px-3">
     <div class="col-7">
         <form asp-action="index" method="get" class="row g-2 align-items-center">
-            <div class="col-5">
+            <div class="col-lg-5 col-md-10 col-sm-10">
                 <input type="text" class="form-control" aria-describedby="textSearch" placeholder="Juan Dela Cruz" value="@ViewData["CurrentFilter"]" name="searchString">
             </div>
 
@@ -49,8 +49,8 @@
 
     <div class="d-flex justify-content-between align-items-end mb-4">
         <div class="btn-group">
-            <button type="button" class="btn btn-secondary">Filter by Street:</button>
-            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="btn btn-primary">Filter by Street:</button>
+            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">

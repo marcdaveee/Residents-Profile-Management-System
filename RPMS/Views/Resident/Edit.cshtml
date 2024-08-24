@@ -76,30 +76,30 @@
                 
                     <!-- Form Group (username)-->                    
                     <!-- Form Row-->
-                    <div class="row gx-3 mb-3">
+                    <div class="row g-3 mb-4">
                         <!-- Form Group (first name)-->
-                        <div class="col-md-3">
+                        <div class="col-lg-3">
                             <label class="small mb-1" asp-for="Firstname">First name<span class="text-danger">*</span></label>
                             <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" asp-for="Firstname">
                             <span asp-validation-for="Firstname" class="text-danger small">
                             </span>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-lg-3">
                             <label class="small mb-1" asp-for="Middlename">Middle name</label>
                             <input class="form-control" id="inputMiddleName" type="text" placeholder="Enter your middle name" asp-for="Middlename">
                             <span asp-validation-for="Middlename" class="text-danger small">
                             </span>
                         </div>
                         <!-- Form Group (last name)-->
-                        <div class="col-md-3">
+                        <div class="col-lg-3">
                             <label class="small mb-1" asp-for="Lastname">Last name<span class="text-danger">*</span></label>
                             <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" asp-for="Lastname">
                             <span asp-validation-for="Lastname" class="text-danger small">
                             </span>
                         </div>
 
-                        <div class="col-md-1">
+                        <div class="col-lg-1 col-sm-2">
                             <label asp-for="Suffix" class="form-label">Suffix</label>
                             <input class="form-control" asp-for="Suffix" placeholder="">
                             <span asp-validation-for="Suffix" class="text-danger small">
@@ -107,12 +107,13 @@
                         </div>
                     </div>
                     <input hidden asp-for="Age" />
+                    
 
                     <!-- Form Row        -->
-                    <div class="row gx-3 mb-4">
+                    <div class="row g-3 mb-4">
                         <!-- Form Group (age, birthday)-->
                         
-                        <div class="col-md-3">
+                        <div class="col-lg-3 col-sm-4">
                             <label asp-for="Gender" class="form-label small mb-1">Sex<span class="text-danger">*</span></label>
                             <select asp-for="Gender" class="form-select" asp-for="Gender" >
                                 <option value="">Choose...</option>
@@ -123,7 +124,7 @@
                             </span>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-lg-3 col-sm-4">
                             <label asp-for="Status" class="form-label small mb-1">Status<span class="text-danger">*</span></label>
                             <select asp-for="Status" class="form-select" asp-for="Status" >
                                 <option value="">Choose...</option>
@@ -134,7 +135,7 @@
                             </span>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-lg-6">
                             <label class="small mb-1" asp-for="Birthday">Birthday</label>
                             <input asp-for="Birthday" class="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Enter your birthday">
                             <span asp-validation-for="Birthday" class="text-danger small">
@@ -152,34 +153,34 @@
                         </div>
                     </div>
 
-                    <div class="row gx-3 mb-4">
+                    <div class="row g-3 mb-4">
                         <!-- Form Group (Address)-->
 
-                        <div class="col-md-4">
+                        <div class="col-lg-4">
                             <label class="small mb-1" for="inputBrgy">Brgy.</label>
                             <input readonly class="form-control" id="inputBrgy" type="text" placeholder="Enter your location" value="@Model.Address.Brgy">
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-lg-4">
                             <label class="small mb-1" for="inputMunicipality">Municipality</label>
                             <input readonly class="form-control" id="inputMunicipality" type="text" placeholder="Enter your location" value="@Model.Address.Municipality">
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-lg-4">
                             <label class="small mb-1" for="inputProvince">Province</label>
                             <input readonly class="form-control" id="inputProvince" type="text" placeholder="Enter your location" value="@Model.Address.Town">
                         </div>
                     </div>
                     <!-- Form Group (email address, phone number)-->
-                    <div class="row gx-3 mb-5">
-                        <div class="col-md-6">
+                    <div class="row g-3 mb-4">
+                        <div class="col-lg-6">
                             <label class="small mb-1" asp-for="Email">Email address <span class="text-muted">(Optional)</label>
                             <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" asp-for="Email">
                             <span asp-validation-for="Email" class="text-danger small">
                             </span>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-lg-6">
                             <label class="small mb-1" asp-for="ContactNo">Phone number <span class="text-muted">(Optional)</label>
                             <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" asp-for="ContactNo">
                             <span asp-validation-for="ContactNo" class="text-danger small">
@@ -189,7 +190,7 @@
                     </div>
 
                     <div class="row mb-5">
-                        <div class="col-md-6">
+                        <div class="col-lg-6">
                             <label class="small mb-1" for="inputRemarks">Remarks</label>
                             <textarea  asp-for="Remarks" class="form-control" rows="5">@Model.Remarks</textarea>
                         </div>

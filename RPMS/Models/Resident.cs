@@ -43,6 +43,6 @@ namespace RPMS.Models
 
 
         [DataType(DataType.MultilineText)]
-        public string Remarks { get; set; } = string.Empty;
+        public string? Remarks { get; set; } = string.Empty;
     }
 }

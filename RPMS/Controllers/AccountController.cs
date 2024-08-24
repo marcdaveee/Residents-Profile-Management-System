@@ -23,9 +23,12 @@ namespace RPMS.Controllers
         [AllowAnonymous]
         public ActionResult Register (string? returnUrl = null)
         {
-            
-            //Check if there is an existing account in the db
 
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Resident");
+            }
+            
             RegisterViewModel registerViewModel = new RegisterViewModel();
             registerViewModel.ReturnURl = returnUrl ?? Url.Content("~/");
 
@@ -85,6 +88,12 @@ namespace RPMS.Controllers
         [AllowAnonymous]
         public ActionResult Login (string? returnUrl = null)
         {
+
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Resident");
+            }
+
             LoginViewModel loginViewModel = new LoginViewModel();
        
             return View(loginViewModel);

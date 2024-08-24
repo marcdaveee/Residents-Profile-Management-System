@@ -76,37 +76,37 @@
                         <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
                     </div> *@
                     <!-- Form Row-->
-                    <div class="row gx-3 mb-3">
+                    <div class="row g-3 mb-4">
                         <!-- Form Group (first name)-->
                         <div class="col-md-3">
                             <label class="small mb-1" for="inputFirstName">First name</label>
                             <input readonly class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="@Model.Firstname">
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-lg-3">
                             <label class="small mb-1" for="inputMiddleName">Middle name</label>
                             <input readonly class="form-control" id="inputMiddleName" type="text" placeholder="Enter your middle name" value="@Model.Middlename">
                         </div>
                         <!-- Form Group (last name)-->
-                        <div class="col-md-3">
+                        <div class="col-lg-3">
                             <label class="small mb-1" for="inputLastName">Last name</label>
                             <input readonly class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="@Model.Lastname">
                         </div>
 
-                        <div class="col-md-1">
+                        <div class="col-lg-1 col-sm-2">
                             <label asp-for="Suffix" class="form-label">Suffix</label>
                             <input readonly class="form-control" asp-for="Suffix" placeholder="">                            
                         </div>
                     </div>
                     <!-- Form Row        -->
-                    <div class="row gx-3 mb-4">
+                    <div class="row g-3 mb-4">
                         <!-- Form Group (age, birthday)-->
-                        <div class="col-md-3">
+                        <div class="col-lg-3">
                             <label class="small mb-1" for="inputSex">Sex</label>
                             <input readonly class="form-control" id="inputSex" type="text" placeholder="Enter your organization name" value="@Model.Gender">
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-lg-3">
                             <label class="small mb-1" for="inputStatus">Status</label>
                             <input readonly class="form-control" id="inputStatus" type="text" placeholder="Enter your organization name" value="@Model.Status">
                         </div>
@@ -115,46 +115,46 @@
                             var birthdate = @Model.Birthday.HasValue ? @Model.Birthday.Value.ToLongDateString() : "";
                         }
 
-                        <div class="col-md-6">
+                        <div class="col-lg-6">
                             <label class="small mb-1" for="inputBirthday">Birthday</label>
                             <input readonly class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="@birthdate">
                         </div>
                     </div>
 
                     <!-- Form Group (Street)-->
-                    <div class="row mb-2">
+                    <div class="row g-3 mb-4">
                         <div class="col-md-auto">
                             <label class="small mb-1" for="inputStreet">Street</label>
                             <input readonly class="form-control" id="inputStreet" type="text" placeholder="Enter your location" value="@Model.Street.StreetName">
                         </div>
                     </div>
                     
-                    <div class="row gx-3 mb-4">                        
+                    <div class="row g-3 mb-4">                        
                         <!-- Form Group (Address)-->                      
 
-                        <div class="col-md-4">
+                        <div class="col-lg-4">
                             <label class="small mb-1" for="inputBrgy">Brgy.</label>
                             <input readonly class="form-control" id="inputBrgy" type="text" placeholder="Enter your location" value="@Model.Address.Brgy">
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-lg-4">
                             <label class="small mb-1" for="inputMunicipality">Municipality</label>
                             <input readonly class="form-control" id="inputMunicipality" type="text" placeholder="Enter your location" value="@Model.Address.Municipality">
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-lg-4">
                             <label class="small mb-1" for="inputProvince">Province</label>
                             <input readonly class="form-control" id="inputProvince" type="text" placeholder="Enter your location" value="@Model.Address.Town">
                         </div>
                     </div>
                     <!-- Form Group (email address, phone number)-->
-                    <div class="row gx-3 mb-5">
-                        <div class="col-md-6">
+                    <div class="row g-3 mb-4">
+                        <div class="col-lg-6">
                             <label class="small mb-1" for="inputEmailAddress">Email address</label>
                             <input readonly class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="@Model.Email">
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-lg-6">
                             <label class="small mb-1" for="inputPhone">Phone number</label>
                             <input readonly class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="@Model.ContactNo">
                         </div>
@@ -162,7 +162,7 @@
                     </div>
 
                     <div class="row mb-5">
-                        <div class="col-md-6">
+                        <div class="col-lg-6">
                             <label class="small mb-1" for="inputRemarks">Remarks</label>
                             <textarea readonly asp-for="Remarks" id="inputRemarks" class="form-control" rows="5">@Model.Remarks</textarea>
                         </div>
