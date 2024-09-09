@@ -28,6 +28,8 @@ namespace RPMS.Data
             modelBuilder.Entity<Street>().HasOne(s => s.Address).WithMany(s => s.Streets).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Address>().HasMany(a => a.Streets).WithOne(s => s.Address).OnDelete(DeleteBehavior.Restrict);
+
+            
         }
 
     }

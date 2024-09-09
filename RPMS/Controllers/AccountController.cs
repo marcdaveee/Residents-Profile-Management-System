@@ -28,6 +28,14 @@ namespace RPMS.Controllers
             {
                 return RedirectToAction("Index", "Resident");
             }
+
+            var existingUser = _userManager.Users.FirstOrDefault();
+
+            if(existingUser != null)
+            {
+                TempData["WarningAlert"] = "An admin account was already created.";
+                return RedirectToAction("Login");
+            }
             
             RegisterViewModel registerViewModel = new RegisterViewModel();
             registerViewModel.ReturnURl = returnUrl ?? Url.Content("~/");

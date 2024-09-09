@@ -1,7 +1,34 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
+
+@using RPMS.ViewModels
+@model AccountViewModel
+
+
+<h5 class="fs-4 mb-4">Account Settings</h5>
+
+<div class="mx-3" style="width: 35%">
+       
+    <div class="row gx-3 gy-3 mb-3">
+        <!-- Form Group (first name)-->        
+
+        <div class="col-md-12">
+            <label class="small mb-1" for="Municipality">E-mail</label>
+            <input disabled class="form-control" id="Municipality" type="text" value="@Model.Email" readonly>
+        </div>
+        <!-- Form Group (last name)-->
+       
+    </div>
+
+    <div class="d-flex justify-content-between mt-5">
+        <a class="btn btn-outline-primary d-inline-block">Change Password</a>
+        <a class="btn btn-primary d-inline-block">Update Account</a>
+    </div>
+    
+        
+    
+</div>
+
 
 

@@ -10,6 +10,17 @@
 @model LoginViewModel
 
 @* <h4 class="text-info">Register</h4> *@
+
+@if (TempData["WarningAlert"] != null)
+{
+    <div class="d-flex justify-content-center">
+        <div class="alert alert-dismissible alert-warning">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>@TempData["WarningAlert"] </strong>
+        </div>
+      </div>
+}
+
 <form asp-controller="Account" asp-action="Login" method="post" role="form">
     <h4 class="text-info text">Login</h4>
 
